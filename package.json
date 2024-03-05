@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "versionDate": "06/11/2023",
   "company": "Technology Reply S.r.l",
+  "homepage": "https://extrance.github.io",
   "private": true,
   "dependencies": {
     "@emotion/memoize": "^0.8.1",
@@ -51,8 +52,9 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.local react-app-rewired start",
+    "build": "env-cmd -f .env.local react-app-rewired build",
     "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build",
+    "deploy" : "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

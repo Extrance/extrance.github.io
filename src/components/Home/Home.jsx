@@ -4,29 +4,15 @@ import { useTranslation } from "react-i18next";
 import AvengerTable from "../common/table/AvengerTable";
 import styled from "@emotion/styled";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMemo } from "react";
+
+import collection from '../../db/collection.json';
 
 const Home = () => {
   const { t } = useTranslation();
 
-  const list = [
-    {
-      hamId: "iu3byv",
-    },
-    {
-      hamId: "ik3fhp",
-    },
-    {
-      hamId: "ik3fho",
-    },
-    {
-      hamId: "iq3bm",
-    },
-    {
-      hamId: "ii3ww",
-    },
-  ];
+  const [filteredData, setFilteredData] = useState(collection.data);
 
   useEffect(() => {
     document.title = "Ball's Collection";
@@ -35,8 +21,28 @@ const Home = () => {
   const columns = useMemo(() => {
     return [
       {
-        header: t("hamId"),
-        accessorKey: "hamId",
+        header: t("id"),
+        accessorKey: "id",
+        size: "small",
+      },
+      {
+        header: t("brand"),
+        accessorKey: "brand",
+        size: "small",
+      },
+      {
+        header: t("subBrand"),
+        accessorKey: "subBrand",
+        size: "small",
+      },
+      {
+        header: t("name"),
+        accessorKey: "name",
+        size: "small",
+      },
+      {
+        header: t("pieces"),
+        accessorKey: "pieces",
         size: "small",
       },
     ];
@@ -47,7 +53,7 @@ const Home = () => {
       <BoxContainerStyle>
         <AvengerTable
           columns={columns}
-          data={list}
+          data={filteredData}
           size="small"
           warning="noProcessFound"
           rowsperpageslist={[10, 50, 100]}

@@ -1,4 +1,5 @@
 import {
+  Navigate,
   createHashRouter,
 } from "react-router-dom";
 
@@ -16,7 +17,11 @@ export const router = createHashRouter([
     id: "root",
     children: [
       {
-        path: "/",
+        index: true,
+        element: <Navigate to="/Home" />,
+      },
+      {
+        path: "/Home",
         element: <Home />,
       },
       {

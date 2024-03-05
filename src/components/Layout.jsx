@@ -17,7 +17,7 @@ function Layout() {
   const windowSize = useWindowSize();
   //const theme = useTheme();
 
-  const [open, setOpen] = useState(windowSize.width > 1000);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);

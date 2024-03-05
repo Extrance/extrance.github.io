@@ -120,7 +120,7 @@ const ErrorPage = ({
               color="primary"
               aria-label="gotohome-button"
               onClick={() => {
-                navigate("/Ricerca");
+                navigate("/Home");
               }}
             >
               {t("goToHomeButton")}

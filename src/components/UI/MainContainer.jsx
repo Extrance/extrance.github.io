@@ -10,13 +10,13 @@ const MainContainer = styled(Box, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `calc(${theme.spacing(7)} + 1px)`,
+  marginLeft: useWindowSize().width <600 ? 0 : `calc(${theme.spacing(7)} + 1px)`,
   ...(open && {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: `${theme.drawerMainMenuWidth}px`,
+    marginLeft: useWindowSize().width <600 ? 0 : `${theme.drawerMainMenuWidth}px`,
   }),
   marginBottom: "35px",
   height: useWindowSize().height - theme.footerHeight - theme.headerHeight,

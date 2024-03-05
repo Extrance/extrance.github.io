@@ -30,6 +30,8 @@ import {
   getUsernameInitials,
 } from "../../../util/auth/authStorage";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useWindowSize } from "../../../store/ResizeProvider";
+import { useNavigate } from "react-router-dom";
 
 /*
   Oggetto Header
@@ -45,8 +47,16 @@ const Header = ({
   const theme = useTheme();
   const themeColorMode = useContext(ThemeColorModeContext);
   const { t } = useTranslation();
+  const windowSize = useWindowSize();
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isMobile, setIsMobile] = useState(windowSize.width < 600);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsMobile(windowSize.width < 600)
+  }, [windowSize]);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,7 +83,7 @@ const Header = ({
         elevation={8}
       >
         <Toolbar variant="dense">
-          <IconButton
+          {!isMobile ? (<IconButton
             size="medium"
             edge="start"
             color="inherit"
@@ -83,16 +93,20 @@ const Header = ({
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton>) : (<IconButton
+            size="medium"
+            edge="start"
+            color="inherit"
+            aria-label="menu-drawer"
+            onClick={handleClick}
+            //sx={{ mr: 2, ...(window.innerWidth < 1200 && { display: "none" }) }}
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>)}
           <LogoImg src={logo} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
-            <Chip
-              label={process.env.REACT_APP_ENV_LABEL}
-              color="primary"
-              sx={{ ml: "10px" }}
-              size="medium"
-            />
           </Typography>
           
           
@@ -118,7 +132,20 @@ const Header = ({
               </Tooltip>}
         </Toolbar>
       </AppBar>
-      <MainMenu openDrawer={openDrawer} />
+      {!isMobile && (<MainMenu openDrawer={openDrawer} />)}
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={() => {handleClose(); navigate("/Home")}}>Home</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
     </Box>
   );
 };

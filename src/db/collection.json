@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "id": "42083",
+      "brand": "LEGO",
+      "subBrand": "Technic",
+      "pieces": 3599,
+      "name": "Bugatti Chiron"
+    },
+    {
+      "id": "8461",
+      "brand": "LEGO",
+      "subBrand": "Racers",
+      "pieces": 1484,
+      "name": "Williams F1"
+    },
+    {
+      "id": "42115",
+      "brand": "LEGO",
+      "subBrand": "Technic",
+      "pieces": 3696,
+      "name": "Lamborghini Sián FKP 37"
+    },
+    {
+      "id": "42143",
+      "brand": "LEGO",
+      "subBrand": "Technic",
+      "pieces": 3778,
+      "name": "Ferrari Daytona SP3"
+    },
+    {
+      "id": "8674",
+      "brand": "LEGO",
+      "subBrand": "Racers",
+      "pieces": 1246,
+      "name": "Ferrari F1 Racer 1:8"
+    }
+  ]
+}
