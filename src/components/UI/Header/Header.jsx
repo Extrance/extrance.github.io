@@ -11,6 +11,7 @@ import {
   Divider,
   Menu,
   Avatar,
+  Switch,
 } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -54,7 +55,7 @@ const Header = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsMobile(windowSize.width < 600)
+    setIsMobile(windowSize.width < 600);
   }, [windowSize]);
 
   const open = Boolean(anchorEl);
@@ -83,68 +84,86 @@ const Header = ({
         elevation={8}
       >
         <Toolbar variant="dense">
-          {!isMobile ? (<IconButton
-            size="medium"
-            edge="start"
-            color="inherit"
-            aria-label="menu-drawer"
-            onClick={handleDrawer}
-            //sx={{ mr: 2, ...(window.innerWidth < 1200 && { display: "none" }) }}
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>) : (<IconButton
-            size="medium"
-            edge="start"
-            color="inherit"
-            aria-label="menu-drawer"
-            onClick={handleClick}
-            //sx={{ mr: 2, ...(window.innerWidth < 1200 && { display: "none" }) }}
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>)}
+          {!isMobile ? (
+            <IconButton
+              size="medium"
+              edge="start"
+              color="inherit"
+              aria-label="menu-drawer"
+              onClick={handleDrawer}
+              //sx={{ mr: 2, ...(window.innerWidth < 1200 && { display: "none" }) }}
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          ) : (
+            <IconButton
+              size="medium"
+              edge="start"
+              color="inherit"
+              aria-label="menu-drawer"
+              onClick={handleClick}
+              //sx={{ mr: 2, ...(window.innerWidth < 1200 && { display: "none" }) }}
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           <LogoImg src={logo} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          
-          
-          {<Tooltip
-            title={
-              useTheme().palette.mode === "dark"
-                ? t("lightModeLabel")
-                : t("blackModeLabel")
-            }
-            placement="bottom"
-          >
-            <IconButton
-              sx={{ ml: 1 }}
-              onClick={themeColorMode.colorMode.toggleColorMode}
-              size="small"
+
+          {
+            <Tooltip
+              title={
+                useTheme().palette.mode === "dark"
+                  ? t("lightModeLabel")
+                  : t("blackModeLabel")
+              }
+              placement="bottom"
             >
-              {theme.palette.mode === "dark" ? (
-                <Brightness7Icon />
-              ) : (
-                <Brightness4Icon />
-              )}
-            </IconButton>
-              </Tooltip>}
+              <IconButton
+                sx={{ ml: 1 }}
+                onClick={themeColorMode.colorMode.toggleColorMode}
+                size="small"
+              >
+                {theme.palette.mode === "dark" ? (
+                  <DarkModeIcon />
+                ) : (
+                  <LightModeIcon />
+                )}
+              </IconButton>
+            </Tooltip>
+          }
         </Toolbar>
       </AppBar>
-      {!isMobile && (<MainMenu openDrawer={openDrawer} />)}
+      {!isMobile && <MainMenu openDrawer={openDrawer} />}
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'basic-button',
+          "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={() => {handleClose(); navigate("/Home")}}>Home</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            navigate("/Home");
+          }}
+        >
+          {t("Home")}
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            navigate("/Wishlist");
+          }}
+        >
+          {t("Wishlist")}
+        </MenuItem>
       </Menu>
     </Box>
   );

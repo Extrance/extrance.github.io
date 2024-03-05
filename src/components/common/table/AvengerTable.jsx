@@ -197,8 +197,7 @@ const AvengerTable = ({
           </Table>
           {isPaginated && (
             <TablePagination
-              rowsPerPageOptions={rowsperpageslist}
-              component="div"
+              rowsPerPageOptions={[]}
               count={table.getExpandedRowModel().rows.length}
               rowsPerPage={pageSize}
               page={pageIndex}

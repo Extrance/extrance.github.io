@@ -19,7 +19,7 @@ export const arcScarlet = "#500000";
 
 export const arcReply = "#e73e27";
 
-const getThemePaletteDespar = (mode) => {
+const getThemePaletteExtrance = (mode) => {
   return createTheme({
     palette: {
       mode: mode,
@@ -53,9 +53,9 @@ const getThemePaletteDespar = (mode) => {
         main: arcWhite,
       },
       primary: {
-        main: arcReply,
-        dark: arcReply,
-        light: arcReply,
+        main: arcOrange,
+        dark: arcOrange,
+        light: arcOrange,
       },
       secondary: {
         main: arcBlue,
@@ -203,8 +203,8 @@ const getThemePaletteReply = (mode) => {
 
 const themeDefault = (mode) => {
   const themePalette =
-    process.env.REACT_APP_ENV_USER === "despar"
-      ? getThemePaletteDespar(mode)
+    process.env.REACT_APP_ENV_USER === "extrance"
+      ? getThemePaletteExtrance(mode)
       : process.env.REACT_APP_ENV_USER === "geox"
       ? getThemePaletteGeox(mode)
       : getThemePaletteReply(mode);
@@ -432,16 +432,7 @@ const themeDefault = (mode) => {
           },
         },
       },
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            backgroundColor:
-              themePalette.palette.mode === "dark"
-                ? themePalette.palette.inputField.dark
-                : themePalette.palette.inputField.main,
-          },
-        },
-      },
+      
       MuiDatePicker: {
         styleOverrides: {
           root: {

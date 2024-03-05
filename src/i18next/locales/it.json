@@ -1281,7 +1281,7 @@
   "savedQueryDesc": "Query con descrizione {{description}} salvata correttamente: {{generatedQuery}}",
   "scheduled": "Schedulato",
   "seachConditions": "Condizioni Ricerca",
-  "search": "Ricerca",
+  "search": "Cerca",
   "searchConditions": "Condizioni ricerca",
   "searchEntityAddCondition": "Aggiungi condizione",
   "searchEntityAttribute": "Attributo",
@@ -1668,5 +1668,13 @@
   "withMonitor": "Con monitor",
   "withTasks": "Con task",
   "yes": "Si",
-  "hamId": "Nominativo"
+  "hamId": "Nominativo",
+  "id": "#",
+  "brand": "Marca",
+  "subBrand": "Linea",
+  "Wishlist": "Wishlist",
+  "Home": "Lista",
+  "noSetFound": "Nessun set trovato",
+  "OwnedSets": "Set che ho",
+  "clear": "Pulisci filtri"
 }

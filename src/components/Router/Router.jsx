@@ -7,6 +7,7 @@ import Layout from "../Layout";
 import ErrorPage from "../Error/ErrorPage";
 
 import Home from "../Home/Home";
+import Wishlist from "../Wishlist/Wishlist";
 
 
 export const router = createHashRouter([
@@ -23,6 +24,10 @@ export const router = createHashRouter([
       {
         path: "/Home",
         element: <Home />,
+      },
+      {
+        path: "/Wishlist",
+        element: <Wishlist />,
       },
       {
         path: "*",

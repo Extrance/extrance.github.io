@@ -37,7 +37,6 @@ function Layout() {
       />
       <MainContainer open={open}>
         <Outlet />
-        <Footer />
       </MainContainer>
     </BoxStyle>
   );

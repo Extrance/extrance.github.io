@@ -37,6 +37,9 @@ i18next
       },
     },
     ns: ["translations"],
+    locales: ['it', 'en'],
+    defaultLocale: 'it',
+    localeDetection: false,
     defaultNS: "translations",
     // react i18next special options (optional)
     // override if needed - omit if ok with defaults

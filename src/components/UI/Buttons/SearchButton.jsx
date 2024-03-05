@@ -12,7 +12,7 @@ const SearchButton = ({ tooltipLabel, props }) => {
         color="primary"
         startIcon={<SearchIcon />}
       >
-        {props.label}
+        {props?.label ?? "SEARCH"}
       </Button>
     </Tooltip>
   );

@@ -10,6 +10,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from '@mui/icons-material/Home';
+import ChecklistIcon from '@mui/icons-material/Checklist';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 
 const openedMixin = (theme) => ({
   width: theme.drawerMainMenuWidth,
@@ -82,7 +84,7 @@ const MainMenu = (props) => {
                 }}
               >
                 <ListItemIcon>
-                  <HomeIcon color="primary" />
+                  <ChecklistIcon color="primary" />
                 </ListItemIcon>
                 <ListItemText primary={t("Home")} />
               </ListItemButton>
@@ -90,6 +92,28 @@ const MainMenu = (props) => {
           </Tooltip>
 
           <Divider />
+
+          <Tooltip
+            title={!props.openDrawer ? t("Wishlist") : ""}
+            placement="right"
+          >
+            <ListItem
+              key="Wishlist"
+              disablePadding
+              selected={location?.pathname.startsWith("/Wishlist")}
+            >
+              <ListItemButton
+                onClick={() => {
+                  navigate("Wishlist");
+                }}
+              >
+                <ListItemIcon>
+                  <CardGiftcardIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary={t("Wishlist")} />
+              </ListItemButton>
+            </ListItem>
+          </Tooltip>
 
         </List>
       </Box>
