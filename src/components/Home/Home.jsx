@@ -1,39 +1,43 @@
 import { Box, Stack, TextField } from "@mui/material";
+import { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useWindowSize } from "../../store/ResizeProvider";
 
-import AvengerTable from "../common/table/AvengerTable";
 import styled from "@emotion/styled";
 
-import { useEffect, useState } from "react";
-import { useMemo } from "react";
-
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import AvengerTable from "../common/table/AvengerTable";
 import SearchLogo from "../UI/Buttons/SearchLogo";
 import ClearLogo from "../UI/Buttons/ClearLogo";
-import SearchButton from "../UI/Buttons/SearchButton";
-import collection from "../../db/collection.json";
-import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-import { useWindowSize } from "../../store/ResizeProvider";
 
 const Home = () => {
   const { t } = useTranslation();
   const windowSize = useWindowSize();
   const [num, setNum] = useState("");
   const [name, setName] = useState("");
-  const [filteredData, setFilteredData] = useState(
-    collection.data.filter((item) => item.status === "OWNED")
-  );
+  const [filteredData, setFilteredData] = useState([]);
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     const fetchData = () => {
-      const newData = collection.data.filter(
-        (item) =>
-          item.status === "OWNED" && item.id.includes(num) && item.name.includes(name)
-      );
-      console.log(newData);
-      setFilteredData(newData);
+      fetch(
+        "https://raw.githubusercontent.com/Extrance/data/main/collection.json"
+      )
+        .then((res) => res.json())
+        .then((out) =>
+          setFilteredData(
+            out.data.filter(
+              (item) =>
+                item.status === "OWNED" &&
+                item.id.includes(num) &&
+                item.name.includes(name)
+            )
+          )
+        )
+        .catch((err) => setFilteredData([]));
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update]);
 
   useEffect(() => {
@@ -54,7 +58,9 @@ const Home = () => {
         cell: ({ row }) => (
           <div diplay="block">
             <div>{row.original.brand}</div>
-            <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>
+            {row.original.subBrand && (
+              <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>
+            )}
           </div>
         ),
       },
@@ -64,6 +70,7 @@ const Home = () => {
         size: "small",
       },
     ];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update]);
 
   return (
@@ -121,7 +128,7 @@ const Home = () => {
           columns={columns}
           data={filteredData}
           size="small"
-          warning="noProcessFound"
+          warning="noSetFound"
           isPaginated={true}
           rowsperpageslist={[10, 50, 100]}
         />
