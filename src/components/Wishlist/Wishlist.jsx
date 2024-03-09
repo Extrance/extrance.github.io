@@ -14,6 +14,7 @@ const Wishlist = () => {
 
   const [data, setData] = useState([])
   const [filteredData, setFilteredData] = useState([]);
+  const [update, setUpdate] = useState(null);
 
   useEffect(() => {
     document.title = "Ball's Collection - Wishlist";
@@ -23,21 +24,21 @@ const Wishlist = () => {
       )
         .then((res) => res.json())
         .then((out) => setData(out.data))
-        .catch(() => alert.showErrorAlert("Error while retrieving data"));
+        .catch(() => alert.showErrorAlert("Error while retrieving data"))
+        .finally(() => setUpdate(!update));
     };
     fetchData();
     filter();
   }, []);
 
+  useEffect(() => {
+    if(update !== null)
+      filter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [update]);
+
   const filter = () => {
-    setFilteredData(
-      data.filter(
-        (item) =>
-          item.status === "OWNED" &&
-          item.id.includes(num) &&
-          item.name.includes(name)
-      )
-    );
+    setFilteredData(data.filter((item) => item.status === "WANTED"));
   };
 
   const columns = useMemo(() => {
@@ -51,8 +52,8 @@ const Wishlist = () => {
         header: t("brand"),
         accessorKey: "brand",
         size: "small",
-        cell: (({row}) => (
-          <div diplay="block"><div>{row.original.brand}</div><div style={{fontSize: 10}}>{row.original.subBrand}</div></div>
+        cell: (({ row }) => (
+          <div diplay="block"><div>{row.original.brand}</div><div style={{ fontSize: 10 }}>{row.original.subBrand}</div></div>
         )),
       },
       {
@@ -61,7 +62,7 @@ const Wishlist = () => {
         size: "small",
       },
     ];
-  }, []);
+  }, [filteredData]);
 
   return (
     <Box>
@@ -71,6 +72,7 @@ const Wishlist = () => {
           isToolbarVisible={true}
           title={t("Wishlist")}
           data={filteredData}
+          isPaginated={true}
           size="small"
           warning="noSetFound"
           rowsperpageslist={[10, 50, 100]}

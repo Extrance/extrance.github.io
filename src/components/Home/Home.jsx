@@ -28,11 +28,11 @@ const Home = () => {
       )
         .then((res) => res.json())
         .then((out) => setData(out.data))
-        .catch(() => alert.showErrorAlert("Error while retrieving data"));
+        .catch(() => alert.showErrorAlert("Error while retrieving data"))
+        .finally(() => setUpdate(!update));
     };
     document.title = "Ball's Collection";
     fetchData();
-    filter();
   }, []);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const Home = () => {
       },
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update]);
+  }, [filteredData]);
 
   return (
     <Box>
