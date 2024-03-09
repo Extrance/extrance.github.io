@@ -2,6 +2,7 @@ import { Box, Stack, TextField } from "@mui/material";
 import { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../store/ResizeProvider";
+import { useAlert } from "../../store/AlertProvider";
 
 import styled from "@emotion/styled";
 
@@ -13,10 +14,12 @@ import ClearLogo from "../UI/Buttons/ClearLogo";
 const Home = () => {
   const { t } = useTranslation();
   const windowSize = useWindowSize();
+  const alert = useAlert();
   const [num, setNum] = useState("");
   const [name, setName] = useState("");
+  const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [update, setUpdate] = useState(false);
+  const [update, setUpdate] = useState(null);
 
   useEffect(() => {
     const fetchData = () => {
@@ -24,25 +27,30 @@ const Home = () => {
         "https://raw.githubusercontent.com/Extrance/data/main/collection.json"
       )
         .then((res) => res.json())
-        .then((out) =>
-          setFilteredData(
-            out.data.filter(
-              (item) =>
-                item.status === "OWNED" &&
-                item.id.includes(num) &&
-                item.name.includes(name)
-            )
-          )
-        )
-        .catch((err) => setFilteredData([]));
+        .then((out) => setData(out.data))
+        .catch(() => alert.showErrorAlert("Error while retrieving data"));
     };
+    document.title = "Ball's Collection";
     fetchData();
+    filter();
+  }, []);
+
+  useEffect(() => {
+    if(update !== null)
+      filter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update]);
 
-  useEffect(() => {
-    document.title = "Ball's Collection";
-  }, []);
+  const filter = () => {
+    setFilteredData(
+      data.filter(
+        (item) =>
+          item.status === "OWNED" &&
+          item.id.includes(num) &&
+          item.name.includes(name)
+      )
+    );
+  };
 
   const columns = useMemo(() => {
     return [

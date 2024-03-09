@@ -6,17 +6,39 @@ import styled from "@emotion/styled";
 
 import { useEffect, useState } from "react";
 import { useMemo } from "react";
-
-import collection from '../../db/collection.json';
+import { useAlert } from "../../store/AlertProvider";
 
 const Wishlist = () => {
   const { t } = useTranslation();
+  const alert = useAlert();
 
-  const [filteredData, setFilteredData] = useState(collection.data.filter((item) => (item.status === "WANTED")));
+  const [data, setData] = useState([])
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    document.title = "Ball's Collection";
+    document.title = "Ball's Collection - Wishlist";
+    const fetchData = () => {
+      fetch(
+        "https://raw.githubusercontent.com/Extrance/data/main/wishlist.json"
+      )
+        .then((res) => res.json())
+        .then((out) => setData(out.data))
+        .catch(() => alert.showErrorAlert("Error while retrieving data"));
+    };
+    fetchData();
+    filter();
   }, []);
+
+  const filter = () => {
+    setFilteredData(
+      data.filter(
+        (item) =>
+          item.status === "OWNED" &&
+          item.id.includes(num) &&
+          item.name.includes(name)
+      )
+    );
+  };
 
   const columns = useMemo(() => {
     return [
