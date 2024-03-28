@@ -1,4 +1,4 @@
-import { Box, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../store/ResizeProvider";
@@ -36,7 +36,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if(update !== null)
+    if (update !== null)
       filter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update]);
@@ -58,18 +58,16 @@ const Home = () => {
         header: t("id"),
         accessorKey: "id",
         size: "small",
+        cell: ({row}) => (
+          <Button type="text" onClick={() => alert.showInfoAlert("Stay tuned for upcoming features 😉")}>{row.original.id}</Button>
+        ),
       },
       {
         header: t("brand"),
         accessorKey: "brand",
         size: "small",
         cell: ({ row }) => (
-          <div diplay="block">
-            <div>{row.original.brand}</div>
-            {row.original.subBrand && (
-              <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>
-            )}
-          </div>
+          <Stack display="flex" justifyContent="center" minHeight="33px"><div>{row.original.brand}</div>{row.original?.subBrand && <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>}</Stack>
         ),
       },
       {

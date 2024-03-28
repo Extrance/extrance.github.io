@@ -54,138 +54,12 @@ const getThemePaletteExtrance = (mode) => {
       },
       primary: {
         main: arcOrange,
-        dark: arcOrange,
-        light: arcOrange,
       },
       secondary: {
         main: arcBlue,
-        dark: "#42a5f5",
-        light: "#0d47a1",
       },
       success: {
         main: arcGreen,
-        dark: "#17a660",
-        light: "#006233",
-      },
-      error: {
-        main: arcRed,
-      },
-      down: {
-        main: arcRed,
-      },
-      warning: {
-        main: arcOrange,
-        contrastText: arcWhite,
-      },
-    },
-  });
-};
-
-const getThemePaletteGeox = (mode) => {
-  return createTheme({
-    palette: {
-      mode: mode,
-      background: {
-        default: arcGreyLight,
-      },
-      header: {
-        main: arcWhite,
-      },
-      headerChip: {
-        main: arcDarkBlue,
-      },
-      footer: {
-        main: arcGreyLight,
-      },
-      footerRelease: {
-        main: arcGrey,
-      },
-      table: {
-        main: arcWhite,
-      },
-      componentHeaderText: {
-        main: arcGreyLight,
-      },
-      noButton: {
-        main: arcGrey,
-      },
-      inputField: {
-        main: arcWhite,
-      },
-      primary: {
-        main: arcDarkBlue,
-        dark: arcBlue,
-      },
-      secondary: {
-        main: arcGreen,
-        dark: "#339b6c",
-      },
-      success: {
-        main: arcGreen,
-        dark: "#339b6c",
-      },
-      error: {
-        main: arcRed,
-      },
-      down: {
-        main: arcRed,
-        dark: arcRed,
-      },
-      warning: {
-        main: arcOrange,
-        contrastText: arcWhite,
-      },
-    },
-  });
-};
-
-const getThemePaletteReply = (mode) => {
-  return createTheme({
-    palette: {
-      mode: mode,
-      background: {
-        default: arcGreyLight,
-      },
-      header: {
-        main: arcWhite,
-      },
-      headerChip: {
-        main: arcReply,
-        dark: "#e96350",
-        light: "#9f2a19",
-      },
-      footer: {
-        main: arcGreyLight,
-      },
-      footerRelease: {
-        main: arcGrey,
-      },
-      table: {
-        main: arcWhite,
-      },
-      componentHeaderText: {
-        main: arcGreyLight,
-      },
-      noButton: {
-        main: arcGrey,
-      },
-      inputField: {
-        main: arcWhite,
-      },
-      primary: {
-        main: "#04444c",
-        dark: "#36696f",
-        light: "#022f35",
-      },
-      secondary: {
-        main: arcBlue,
-        dark: "#42a5f5",
-        light: "#0d47a1",
-      },
-      success: {
-        main: arcGreen,
-        dark: "#17a660",
-        light: "#006233",
       },
       error: {
         main: arcRed,
@@ -205,9 +79,7 @@ const themeDefault = (mode) => {
   const themePalette =
     process.env.REACT_APP_ENV_USER === "extrance"
       ? getThemePaletteExtrance(mode)
-      : process.env.REACT_APP_ENV_USER === "geox"
-      ? getThemePaletteGeox(mode)
-      : getThemePaletteReply(mode);
+      : getThemePaletteExtrance(mode);
   return createTheme(themePalette, {
     drawerMainMenuWidth: 240,
     footerHeight: 35,
@@ -249,7 +121,7 @@ const themeDefault = (mode) => {
             //textTransform: "uppercase",
             color:
               themePalette.palette.mode === "dark"
-                ? themePalette.palette.componentHeaderText.dark
+                ? themePalette.palette.componentHeaderText.light
                 : themePalette.palette.componentHeaderText.main,
           },
         },
@@ -257,45 +129,31 @@ const themeDefault = (mode) => {
       MuiButton: {
         styleOverrides: {
           root: ({ ownerState }) => ({
-            contained: {
-              ...(ownerState.color === "primary" &&
-                (themePalette.palette.mode === "dark"
-                  ? { backgroundColor: themePalette.palette.primary.dark }
-                  : { backgroundColor: themePalette.palette.primary.main })),
-              ...(ownerState.color === "secondary" &&
-                (themePalette.palette.mode === "dark"
-                  ? { backgroundColor: themePalette.palette.secondary.dark }
-                  : { backgroundColor: themePalette.palette.secondary.main })),
-            },
-            outlined: {
-              ...(ownerState.color === "primary" &&
-                (themePalette.palette.mode === "dark"
-                  ? {
-                      color: themePalette.palette.primary.dark,
-                      borderColor: themePalette.palette.primary.dark,
-                    }
-                  : {
-                      color: themePalette.palette.primary.main,
-                      borderColor: themePalette.palette.primary.main,
-                    })),
-              ...(ownerState.color === "secondary" &&
-                (themePalette.palette.mode === "dark"
-                  ? {
-                      color: themePalette.palette.secondary.dark,
-                      borderColor: themePalette.palette.secondary.dark,
-                    }
-                  : {
-                      color: themePalette.palette.secondary.main,
-                      borderColor: themePalette.palette.secondary.main,
-                    })),
-            },
-            ...(ownerState.color === "primary" &&
-              ownerState.variant === "text" && {
-                color:
-                  themePalette.palette.mode === "dark"
-                    ? themePalette.palette.primary.dark
-                    : themePalette.palette.primary.main,
-              }),
+            ...(ownerState.variant === "contained" && (themePalette.palette.mode === "dark"
+              ? {
+                backgroundColor: themePalette.palette[ownerState.color]?.light,
+              }
+              : {
+                backgroundColor: themePalette.palette[ownerState.color]?.main,
+              })),
+            ...(ownerState.variant === "outlined" && (themePalette.palette.mode === "dark"
+              ? {
+                color: themePalette.palette[ownerState.color]?.light,
+                borderColor: themePalette.palette[ownerState.color]?.light,
+              }
+              : {
+                color: themePalette.palette[ownerState.color]?.main,
+                borderColor: themePalette.palette[ownerState.color]?.main,
+              })),
+            ...(ownerState.variant === "text" && (themePalette.palette.mode === "dark"
+              ? {
+                color: themePalette.palette[ownerState.color]?.light,
+                padding: "0px 0px",
+              }
+              : {
+                color: themePalette.palette[ownerState.color]?.main,
+                padding: "0px 0px",
+              })),
           }),
         },
       },
@@ -304,7 +162,7 @@ const themeDefault = (mode) => {
           indicator: {
             backgroundColor:
               themePalette.palette.mode === "dark"
-                ? themePalette.palette.primary.dark
+                ? themePalette.palette.primary.light
                 : themePalette.palette.primary.main,
           },
         },
@@ -315,7 +173,7 @@ const themeDefault = (mode) => {
             "&.Mui-selected": {
               color:
                 themePalette.palette.mode === "dark"
-                  ? themePalette.palette.primary.dark
+                  ? themePalette.palette.primary.light
                   : themePalette.palette.primary.main,
             },
           },
@@ -324,24 +182,18 @@ const themeDefault = (mode) => {
       MuiChip: {
         styleOverrides: {
           root: ({ ownerState }) => ({
-            ...(ownerState.color === "primary" &&
-              (themePalette.palette.mode === "dark"
-                ? { backgroundColor: themePalette.palette.primary.dark }
-                : { backgroundColor: themePalette.palette.primary.main })),
+            ...(themePalette.palette.mode === "dark"
+              ? { backgroundColor: themePalette.palette[ownerState.color]?.light }
+              : { backgroundColor: themePalette.palette[ownerState.color]?.main }),
           }),
         },
       },
       MuiIconButton: {
         styleOverrides: {
           root: ({ ownerState }) => ({
-            ...(ownerState.color === "primary" &&
-              (themePalette.palette.mode === "dark"
-                ? { color: themePalette.palette.primary.dark }
-                : { color: themePalette.palette.primary.main })),
-            ...(ownerState.color === "secondary" &&
-              (themePalette.palette.mode === "dark"
-                ? { color: themePalette.palette.secondary.dark }
-                : { color: themePalette.palette.secondary.main })),
+            ...(themePalette.palette.mode === "dark"
+                ? { color: themePalette.palette[ownerState.color]?.light }
+                : { color: themePalette.palette[ownerState.color]?.main }),
           }),
         },
       },
@@ -379,13 +231,13 @@ const themeDefault = (mode) => {
           switchBase: {
             color:
               themePalette.palette.mode === "dark"
-                ? themePalette.palette.down.dark
+                ? themePalette.palette.down.light
                 : themePalette.palette.down.main,
           },
           track: {
             backgroundColor:
               themePalette.palette.mode === "dark"
-                ? themePalette.palette.down.dark
+                ? themePalette.palette.down.light
                 : themePalette.palette.down.main,
           },
         },
@@ -395,7 +247,7 @@ const themeDefault = (mode) => {
           root: {
             backgroundColor:
               themePalette.palette.mode === "dark"
-                ? themePalette.palette.inputField.dark
+                ? themePalette.palette.inputField.light
                 : themePalette.palette.inputField.main,
           },
         },
@@ -432,13 +284,13 @@ const themeDefault = (mode) => {
           },
         },
       },
-      
+
       MuiDatePicker: {
         styleOverrides: {
           root: {
             backgroundColor:
               themePalette.palette.mode === "dark"
-                ? themePalette.palette.inputField.dark
+                ? themePalette.palette.inputField.light
                 : themePalette.palette.inputField.main,
           },
         },
@@ -448,7 +300,7 @@ const themeDefault = (mode) => {
           root: {
             backgroundColor:
               themePalette.palette.mode === "dark"
-                ? themePalette.palette.inputField.dark
+                ? themePalette.palette.inputField.light
                 : themePalette.palette.inputField.main,
           },
         },
@@ -459,11 +311,11 @@ const themeDefault = (mode) => {
             ...(ownerState["aria-label"] === "component-header" && {
               backgroundColor:
                 themePalette.palette.mode === "dark"
-                  ? themePalette.palette.primary.dark
+                  ? themePalette.palette.primary.light
                   : themePalette.palette.primary.main,
               color:
                 themePalette.palette.mode === "dark"
-                  ? themePalette.palette.componentHeaderText.dark
+                  ? themePalette.palette.componentHeaderText.light
                   : themePalette.palette.componentHeaderText.main,
             }),
           }),
@@ -482,14 +334,9 @@ const themeDefault = (mode) => {
       MuiSvgIcon: {
         styleOverrides: {
           root: ({ ownerState }) => ({
-            ...(ownerState.color === "primary" &&
-              (themePalette.palette.mode === "dark"
-                ? { color: themePalette.palette.primary.dark }
-                : { color: themePalette.palette.primary.main })),
-            ...(ownerState.color === "secondary" &&
-              (themePalette.palette.mode === "dark"
-                ? { color: themePalette.palette.secondary.dark }
-                : { color: themePalette.palette.secondary.main })),
+            ...(themePalette.palette.mode === "dark"
+                ? { color: themePalette.palette[ownerState.color]?.light }
+                : { color: themePalette.palette[ownerState.color]?.main }),
           }),
         },
         variants: [
@@ -525,17 +372,17 @@ const themeDefault = (mode) => {
               backgroundColor: "#6b6b6b",
             },
             "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
-              {
-                backgroundColor: "#959595",
-              },
+            {
+              backgroundColor: "#959595",
+            },
             "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active":
-              {
-                backgroundColor: "#959595",
-              },
+            {
+              backgroundColor: "#959595",
+            },
             "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover":
-              {
-                backgroundColor: "#959595",
-              },
+            {
+              backgroundColor: "#959595",
+            },
             "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
               backgroundColor: "#2b2b2b",
             },
