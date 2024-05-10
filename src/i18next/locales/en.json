@@ -1678,5 +1678,10 @@
   "clear": "Clear",
   "missingData": "No data found for given set",
   "setNumber": "Set number",
-  "errorRetrieve": "Error while retrieving data"
+  "errorRetrieve": "Error while retrieving data",
+  "scale": "Scale",
+  "length": "Length",
+  "cm": "cm",
+  "width": "Width",
+  "height": "Height"
 }

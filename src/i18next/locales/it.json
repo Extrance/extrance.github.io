@@ -1679,5 +1679,10 @@
   "clear": "Pulisci filtri",
   "missingData": "Dati mancanti per il set selezionato",
   "setNumber": "Numero del set",
-  "errorRetrieve": "Errore in fase di caricamento dati"
+  "errorRetrieve": "Errore in fase di caricamento dati",
+  "scale": "Scala",
+  "length": "Lunghezza",
+  "cm": "cm",
+  "width": "Larghezza",
+  "height": "Altezza"
 }

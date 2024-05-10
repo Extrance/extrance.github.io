@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Divider, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../store/ResizeProvider";
@@ -19,8 +19,7 @@ const Set = () => {
   useEffect(() => {
     const fetchData = () => {
       fetch(
-        `https://raw.githubusercontent.com/Extrance/data/main/reviews/${
-          pathname.split("/Home/")[1]
+        `https://raw.githubusercontent.com/Extrance/data/main/reviews/${pathname.split("/Home/")[1]
         }.json`
       )
         .then((res) => res.json())
@@ -31,13 +30,27 @@ const Set = () => {
     fetchData();
   }, []);
 
+  console.log(data?.features)
+
   return update ? (
     data ? (
       <BoxStyle>
-        <b>{data?.name}</b>
-        <div style={data?.brand === "moc" ? { fontStyle: "italic" } : {}}>
-          {data?.brand}
-        </div>
+        <Stack spacing={1} direction="row">
+          <b>{data?.name}</b>
+          <div style={data?.brand === "moc" ? { fontStyle: "italic" } : {}}>
+            ({data?.brand})
+          </div>
+        </Stack>
+
+        <Stack spacing={2} marginTop="10px">
+          <Divider />
+          <div>{t("scale")}: {data?.features?.scale}</div>
+          <Stack>
+            <div>{t("length")}: {data?.features?.measures?.length} {t("cm")}</div>
+            <div>{t("width")}: {data?.features?.measures?.width} {t("cm")}</div>
+            <div>{t("height")}: {data?.features?.measures?.height} {t("cm")}</div>
+          </Stack>
+        </Stack>
       </BoxStyle>
     ) : (
       <BoxStyle display="flex" justifyContent="center">
