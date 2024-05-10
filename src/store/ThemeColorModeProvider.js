@@ -4,12 +4,16 @@ import themeDefault from "../components/UI/Theme";
 import ThemeColorModeContext from "./theme-colormode-context";
 
 const ThemeColorModeProvider = (props) => {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState(localStorage.getItem('mode') ?? "light");
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+        if(localStorage.getItem('mode') === 'light')
+          localStorage.setItem('mode', 'dark')
+        else
+        localStorage.setItem('mode', 'light')
       },
     }),
     []

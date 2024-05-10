@@ -29,7 +29,7 @@ const Home = () => {
       )
         .then((res) => res.json())
         .then((out) => setData(out.data))
-        .catch(() => alert.showErrorAlert("Error while retrieving data"))
+        .catch(() => alert.showErrorAlert(t("errorRetrieve")))
         .finally(() => setUpdate(!update));
     };
     document.title = "Ball's Collection";
@@ -89,7 +89,7 @@ const Home = () => {
         {windowSize.width > 600 && (
           <Grid>
             <TextField
-              placeholder="Numero set"
+              placeholder={t("setNumber")}
               variant="standard"
               value={num}
               style={{ width: 150 }}
@@ -100,7 +100,7 @@ const Home = () => {
         )}
         <Grid>
           <TextField
-            placeholder="Nome"
+            placeholder={t("name")}
             variant="standard"
             value={name}
             style={{ width: 150 }}

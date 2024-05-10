@@ -417,7 +417,7 @@
   "genericErrorTitle": "An error occurred!",
   "gestioneworkers": "Manage workers",
   "globalMaxResults": "Global max results (cross-rule)",
-  "goToHomeButton": "To Home",
+  "goToHomeButton": "Back to Home",
   "group": "Group",
   "handleAll": "Handle all",
   "hasCron": "Cron",
@@ -1675,5 +1675,8 @@
   "Home": "LEGO list",
   "noSetFound": "No set found",
   "OwnedSets": "Owned sets",
-  "clear": "Clear"
+  "clear": "Clear",
+  "missingData": "No data found for given set",
+  "setNumber": "Set number",
+  "errorRetrieve": "Error while retrieving data"
 }

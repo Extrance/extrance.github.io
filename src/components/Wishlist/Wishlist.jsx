@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 import { useMemo } from "react";
 import { useAlert } from "../../store/AlertProvider";
 import LinkLogo from "../UI/Buttons/LinkLogo";
+import { useWindowSize } from "../../store/ResizeProvider";
 
 const Wishlist = () => {
   const { t } = useTranslation();
   const alert = useAlert();
+  const windowSize = useWindowSize();
 
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -24,7 +26,7 @@ const Wishlist = () => {
       )
         .then((res) => res.json())
         .then((out) => setData(out.data))
-        .catch(() => alert.showErrorAlert("Error while retrieving data"))
+        .catch(() => alert.showErrorAlert(t("errorRetrieve")))
         .finally(() => setUpdate(!update));
     };
     fetchData();
@@ -61,6 +63,7 @@ const Wishlist = () => {
         size: "small",
       },
       {
+        header: "",
         accessorKey: "link",
         size: "small",
         cell: ({ row }) => (
@@ -82,6 +85,7 @@ const Wishlist = () => {
           isToolbarVisible={true}
           title={t("Wishlist")}
           data={filteredData}
+          hiddenColumns={{id: windowSize.width > 600}}
           isPaginated={true}
           size="small"
           warning="noSetFound"

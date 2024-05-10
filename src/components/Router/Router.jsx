@@ -24,11 +24,14 @@ export const router = createHashRouter([
       },
       {
         path: "/Home",
-        element: <Home />,
         children: [
           {
             index: true,
             element: <Home />,
+          },
+          {
+            path: ":id",
+            element: <Set />,
           },
         ],
       },

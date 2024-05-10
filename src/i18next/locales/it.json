@@ -415,7 +415,7 @@
   "gestioneWorkersTitle": "Gestione Workers",
   "gestioneworkers": "Gestione workers",
   "globalMaxResults": "Risultati max (cross-regola)",
-  "goToHomeButton": "To Home",
+  "goToHomeButton": "Torna alla Home",
   "group": "Gruppo",
   "handleAll": "Gestisci tutti",
   "hasCron": "Cron",
@@ -1676,5 +1676,8 @@
   "Home": "Lista LEGO",
   "noSetFound": "Nessun set trovato",
   "OwnedSets": "Set che ho",
-  "clear": "Pulisci filtri"
+  "clear": "Pulisci filtri",
+  "missingData": "Dati mancanti per il set selezionato",
+  "setNumber": "Numero del set",
+  "errorRetrieve": "Errore in fase di caricamento dati"
 }
