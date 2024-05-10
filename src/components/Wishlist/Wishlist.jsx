@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 import AvengerTable from "../common/table/AvengerTable";
@@ -51,12 +51,9 @@ const Wishlist = () => {
         header: t("brand"),
         accessorKey: "brand",
         size: "small",
-        cell: ({ row }) => (
-          <div display="block">
-            <div>{row.original.brand}</div>
-            <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>
-          </div>
-        ),
+        cell: (({ row }) => (
+          <Stack display="flex" justifyContent="center" minHeight="33px"><div>{row.original.brand}</div>{row.original?.subBrand && <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>}</Stack>
+        )),
       },
       {
         header: t("name"),

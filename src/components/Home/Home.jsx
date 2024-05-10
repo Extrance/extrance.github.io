@@ -71,12 +71,7 @@ const Home = () => {
         accessorKey: "brand",
         size: "small",
         cell: ({ row }) => (
-          <div diplay="block">
-            <div>{row.original.brand}</div>
-            {row.original.subBrand && (
-              <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>
-            )}
-          </div>
+          <Stack display="flex" justifyContent="center" minHeight="33px"><div>{row.original.brand}</div>{row.original?.subBrand && <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>}</Stack>
         ),
       },
       {
