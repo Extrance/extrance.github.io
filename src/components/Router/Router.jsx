@@ -8,6 +8,7 @@ import ErrorPage from "../Error/ErrorPage";
 
 import Home from "../Home/Home";
 import Wishlist from "../Wishlist/Wishlist";
+import Set from "../Set/Set";
 
 
 export const router = createHashRouter([
@@ -24,6 +25,12 @@ export const router = createHashRouter([
       {
         path: "/Home",
         element: <Home />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+          },
+        ],
       },
       {
         path: "/Wishlist",

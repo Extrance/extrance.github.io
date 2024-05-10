@@ -1,4 +1,4 @@
-import { Box, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../store/ResizeProvider";
@@ -10,6 +10,7 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import AvengerTable from "../common/table/AvengerTable";
 import SearchLogo from "../UI/Buttons/SearchLogo";
 import ClearLogo from "../UI/Buttons/ClearLogo";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -36,8 +37,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if(update !== null)
-      filter();
+    if (update !== null) filter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update]);
 
@@ -52,12 +52,19 @@ const Home = () => {
     );
   };
 
+  const navigate = useNavigate();
+
   const columns = useMemo(() => {
     return [
       {
         header: t("id"),
         accessorKey: "id",
         size: "small",
+        cell: ({ row }) => (
+          <Button variant="text" onClick={() => navigate(`${row.original.id}`)}>
+            {row.original.id}
+          </Button>
+        ),
       },
       {
         header: t("brand"),
@@ -82,66 +89,64 @@ const Home = () => {
   }, [filteredData]);
 
   return (
-    <Box>
-      <BoxStyle>
-        <Grid container spacing={1}>
-          {windowSize.width > 600 && (
-            <Grid>
-              <TextField
-                placeholder="Numero set"
-                variant="standard"
-                value={num}
-                style={{ width: 150 }}
-                onChange={(e) => setNum(e.target.value)}
-                size="small"
-              />
-            </Grid>
-          )}
+    <BoxStyle>
+      <Grid container spacing={1}>
+        {windowSize.width > 600 && (
           <Grid>
             <TextField
-              placeholder="Nome"
+              placeholder="Numero set"
               variant="standard"
-              value={name}
+              value={num}
               style={{ width: 150 }}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setNum(e.target.value)}
               size="small"
             />
           </Grid>
-          <Grid>
-            <Stack direction="row">
-              <SearchLogo
-                disabled={false}
-                tooltipLabel={t("search")}
-                props={{
-                  onClick: () => setUpdate(!update),
-                }}
-              />
-              <ClearLogo
-                disabled={false}
-                tooltipLabel={t("clear")}
-                props={{
-                  onClick: () => {
-                    setNum("");
-                    setName("");
-                    setUpdate(!update);
-                  },
-                }}
-              />
-            </Stack>
-          </Grid>
+        )}
+        <Grid>
+          <TextField
+            placeholder="Nome"
+            variant="standard"
+            value={name}
+            style={{ width: 150 }}
+            onChange={(e) => setName(e.target.value)}
+            size="small"
+          />
         </Grid>
-        <AvengerTable
-          isToolbarVisible={true}
-          title={t("OwnedSets")}
-          columns={columns}
-          data={filteredData}
-          size="small"
-          warning="noSetFound"
-          isPaginated={true}
-          rowsperpageslist={[10, 50, 100]}
-        />
-      </BoxStyle>
-    </Box>
+        <Grid>
+          <Stack direction="row">
+            <SearchLogo
+              disabled={false}
+              tooltipLabel={t("search")}
+              props={{
+                onClick: () => setUpdate(!update),
+              }}
+            />
+            <ClearLogo
+              disabled={false}
+              tooltipLabel={t("clear")}
+              props={{
+                onClick: () => {
+                  setNum("");
+                  setName("");
+                  setUpdate(!update);
+                },
+              }}
+            />
+          </Stack>
+        </Grid>
+      </Grid>
+      <AvengerTable
+        isToolbarVisible={true}
+        title={t("OwnedSets")}
+        columns={columns}
+        data={filteredData}
+        size="small"
+        warning="noSetFound"
+        isPaginated={true}
+        rowsperpageslist={[10, 50, 100]}
+      />
+    </BoxStyle>
   );
 };
 

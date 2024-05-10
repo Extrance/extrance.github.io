@@ -3,16 +3,16 @@ import { useTranslation } from "react-i18next";
 
 import AvengerTable from "../common/table/AvengerTable";
 import styled from "@emotion/styled";
-
 import { useEffect, useState } from "react";
 import { useMemo } from "react";
 import { useAlert } from "../../store/AlertProvider";
+import LinkLogo from "../UI/Buttons/LinkLogo";
 
 const Wishlist = () => {
   const { t } = useTranslation();
   const alert = useAlert();
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [update, setUpdate] = useState(null);
 
@@ -32,8 +32,7 @@ const Wishlist = () => {
   }, []);
 
   useEffect(() => {
-    if(update !== null)
-      filter();
+    if (update !== null) filter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update]);
 
@@ -52,14 +51,28 @@ const Wishlist = () => {
         header: t("brand"),
         accessorKey: "brand",
         size: "small",
-        cell: (({ row }) => (
-          <div diplay="block"><div>{row.original.brand}</div><div style={{ fontSize: 10 }}>{row.original.subBrand}</div></div>
-        )),
+        cell: ({ row }) => (
+          <div display="block">
+            <div>{row.original.brand}</div>
+            <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>
+          </div>
+        ),
       },
       {
         header: t("name"),
         accessorKey: "name",
         size: "small",
+      },
+      {
+        accessorKey: "link",
+        size: "small",
+        cell: ({ row }) => (
+          <LinkLogo
+            props={{
+              onClick: () => window.open(row.original.ref, "_blank")
+            }}
+          />
+        ),
       },
     ];
   }, [filteredData]);

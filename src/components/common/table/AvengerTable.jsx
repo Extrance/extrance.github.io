@@ -6,6 +6,7 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TablePagination,
   TableRow,
@@ -196,20 +197,17 @@ const AvengerTable = ({
             </TableBody>
           </Table>
           {isPaginated && (
-            <TablePagination
-              rowsPerPageOptions={[]}
-              count={table.getExpandedRowModel().rows.length}
-              rowsPerPage={pageSize}
-              page={pageIndex}
-              style={{ display: "flex", overflow: "auto" }}
-              SelectProps={{
-                inputProps: { "aria-label": "rows per page" },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
+                <TablePagination
+                  rowsPerPageOptions={[]}
+                  count={table.getExpandedRowModel().rows.length}
+                  rowsPerPage={pageSize}
+                  page={pageIndex}
+                  component="div"
+                  style={{ display: "flex", overflow: "auto" }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
           )}
         </TableContainer>
       )}

@@ -9,13 +9,13 @@ import styled from "@emotion/styled";
 import MainContainer from "./UI/MainContainer";
 import Header from "./UI/Header/Header";
 import Footer from "./UI/Footer/Footer";
+import { useTheme } from "@emotion/react";
 
 //import { useTheme } from "@emotion/react";
 
 function Layout() {
   const { t } = useTranslation();
-  const windowSize = useWindowSize();
-  //const theme = useTheme();
+  const theme = useTheme();
 
   const [open, setOpen] = useState(false);
 
@@ -46,6 +46,4 @@ export default Layout;
 
 const BoxStyle = styled(Box)(() => ({
   paddingTop: "60px",
-  height: "100%",
-  width: "100%",
 }));
