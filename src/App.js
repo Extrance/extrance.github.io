@@ -4,7 +4,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppContextProvider } from "./store/AppContextProvider";
 import { RecoilRoot } from "recoil";
 import { router } from "./components/Router/Router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import i18n from "./i18next/i18n";
 
@@ -14,6 +14,11 @@ import ThemeColorModeContext from "./store/theme-colormode-context";
 
 function App() {
   const themeColorMode = useContext(ThemeColorModeContext);
+
+  useEffect(() => {
+    if (!localStorage.getItem('mode'))
+      localStorage.setItem('mode', (window.matchMedia('(prefers-color-scheme: dark)').matches || window.matchMedia('(prefers-dark-interface)').matches) ? 'dark' : 'light');
+  }, []);
 
   return (
     <RecoilRoot>
