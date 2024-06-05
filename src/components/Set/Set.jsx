@@ -24,13 +24,11 @@ const Set = () => {
       )
         .then((res) => res.json())
         .then((out) => setData(out))
-        .catch((e) => console.log(e))
+        .catch((e) => alert.showErrorAlert(t("errorRetrieve")))
         .finally(() => setUpdate(!update));
     };
     fetchData();
   }, []);
-
-  console.log(data?.features)
 
   return update ? (
     data ? (

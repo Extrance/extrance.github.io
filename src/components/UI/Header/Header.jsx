@@ -32,7 +32,8 @@ import {
 } from "../../../util/auth/authStorage";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useWindowSize } from "../../../store/ResizeProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 /*
   Oggetto Header
@@ -96,10 +97,16 @@ const Header = ({
   const themeColorMode = useContext(ThemeColorModeContext);
   const { t } = useTranslation();
   const windowSize = useWindowSize();
+  const location = useLocation();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [isMobile, setIsMobile] = useState(windowSize.width < 600);
   const navigate = useNavigate();
+
+  const path = location.pathname
+    .split("/")
+    .filter((crumb) => crumb !== "")
+    .slice(0, -1);
 
   useEffect(() => {
     setIsMobile(windowSize.width < 600);
@@ -132,6 +139,12 @@ const Header = ({
       >
         <Toolbar variant="dense">
           {!isMobile ? (
+            <Tooltip
+            title={
+              t("openMenu")
+            }
+            placement="bottom-start"
+          >
             <IconButton
               size="medium"
               edge="start"
@@ -143,6 +156,7 @@ const Header = ({
             >
               <MenuIcon />
             </IconButton>
+            </Tooltip>
           ) : (
             <IconButton
               size="medium"
@@ -150,13 +164,26 @@ const Header = ({
               color="inherit"
               aria-label="menu-drawer"
               onClick={handleClick}
+              style={{ marginRight: 0 }}
               //sx={{ mr: 2, ...(window.innerWidth < 1200 && { display: "none" }) }}
               sx={{ mr: 2 }}
             >
               <MenuIcon />
             </IconButton>
           )}
-          <LogoImg src={logo} />
+
+          {path.length > 0 ? (
+            <Tooltip
+              title={
+                t("backButton")
+              }
+              placement="bottom-start"
+            >
+              <IconButton style={{ backgroundColor: 'transparent' }} onClick={() => navigate(-1)}>
+                <ArrowBackIosNewIcon />
+              </IconButton>
+            </Tooltip>
+          ) : (<div style={{ width: 40 }}></div>)}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
@@ -167,7 +194,7 @@ const Header = ({
                 ? t("lightModeLabel")
                 : t("blackModeLabel")
             }
-            placement="bottom"
+            placement="bottom-start"
           >
             <MaterialUISwitch
               checked={theme.palette.mode === "dark"}
@@ -182,7 +209,7 @@ const Header = ({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        style={{marginTop: "10px"}}
+        style={{ marginTop: "10px" }}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}

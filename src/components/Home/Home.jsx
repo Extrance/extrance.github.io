@@ -11,6 +11,7 @@ import AvengerTable from "../common/table/AvengerTable";
 import SearchLogo from "../UI/Buttons/SearchLogo";
 import ClearLogo from "../UI/Buttons/ClearLogo";
 import { useNavigate } from "react-router-dom";
+import { removeDuplicates } from "../../util/utilFunction";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -19,6 +20,7 @@ const Home = () => {
   const [num, setNum] = useState("");
   const [name, setName] = useState("");
   const [data, setData] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [update, setUpdate] = useState(null);
 
@@ -28,7 +30,10 @@ const Home = () => {
         "https://raw.githubusercontent.com/Extrance/data/main/collection.json"
       )
         .then((res) => res.json())
-        .then((out) => setData(out.data))
+        .then((out) => {
+          setData(out.data);
+          setBrands(removeDuplicates(out.data.map((item) => {return item.brand})));
+        })
         .catch(() => alert.showErrorAlert(t("errorRetrieve")))
         .finally(() => setUpdate(!update));
     };
