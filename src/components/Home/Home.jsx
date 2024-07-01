@@ -25,8 +25,6 @@ const Home = () => {
   const [update, setUpdate] = useState(null);
   const [brand, setBrand] = useState("");
 
-  console.log(brands);
-
   useEffect(() => {
     const fetchData = () => {
       fetch(

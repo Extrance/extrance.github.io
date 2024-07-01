@@ -248,7 +248,7 @@ const themeDefault = (mode) => {
             backgroundColor:
               themePalette.palette.mode === "dark"
                 ? themePalette.palette.inputField.light
-                : themePalette.palette.inputField.main,
+                : arcGreyLight,
           },
         },
         defaultProps: {
