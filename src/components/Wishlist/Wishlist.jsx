@@ -1,13 +1,12 @@
 import { Box, Stack } from "@mui/material";
 import { useTranslation } from "react-i18next";
-
-import AvengerTable from "../common/table/AvengerTable";
-import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
-import { useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useAlert } from "../../store/AlertProvider";
-import LinkLogo from "../UI/Buttons/LinkLogo";
 import { useWindowSize } from "../../store/ResizeProvider";
+import { Table } from "../common";
+
+import styled from "@emotion/styled";
+import LinkLogo from "../UI/Buttons/LinkLogo";
 
 const Wishlist = () => {
   const { t } = useTranslation();
@@ -80,7 +79,7 @@ const Wishlist = () => {
   return (
     <Box>
       <BoxStyle>
-        <AvengerTable
+        <Table
           columns={columns}
           isToolbarVisible={true}
           title={t("Wishlist")}

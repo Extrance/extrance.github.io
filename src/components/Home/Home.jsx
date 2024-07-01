@@ -1,4 +1,4 @@
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
 import { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../store/ResizeProvider";
@@ -7,11 +7,11 @@ import { useAlert } from "../../store/AlertProvider";
 import styled from "@emotion/styled";
 
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-import AvengerTable from "../common/table/AvengerTable";
 import SearchLogo from "../UI/Buttons/SearchLogo";
 import ClearLogo from "../UI/Buttons/ClearLogo";
 import { useNavigate } from "react-router-dom";
 import { removeDuplicates } from "../../util/utilFunction";
+import {Table} from "../common";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -23,6 +23,9 @@ const Home = () => {
   const [brands, setBrands] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [update, setUpdate] = useState(null);
+  const [brand, setBrand] = useState("");
+
+  console.log(brands);
 
   useEffect(() => {
     const fetchData = () => {
@@ -32,7 +35,7 @@ const Home = () => {
         .then((res) => res.json())
         .then((out) => {
           setData(out.data);
-          setBrands(removeDuplicates(out.data.map((item) => {return item.brand})));
+          setBrands(removeDuplicates(out.data.map((item) => { return item.brand })));
         })
         .catch(() => alert.showErrorAlert(t("errorRetrieve")))
         .finally(() => setUpdate(!update));
@@ -50,7 +53,6 @@ const Home = () => {
     setFilteredData(
       data.filter(
         (item) =>
-          item.status === "OWNED" &&
           item.id.includes(num) &&
           item.name.includes(name)
       )
@@ -114,6 +116,18 @@ const Home = () => {
           />
         </Grid>
         <Grid>
+          <Select
+            label={t("brand")}
+            variant="standard"
+            value={brand}
+            style={{ width: 150 }}
+            onChange={(e) => setBrand(e.target.value)}
+            size="small"
+          >
+            {brands.map((item) => { return <MenuItem key={item} value={item}>{item}</MenuItem> })}
+          </Select>
+        </Grid>
+        <Grid>
           <Stack direction="row">
             <SearchLogo
               disabled={false}
@@ -136,7 +150,7 @@ const Home = () => {
           </Stack>
         </Grid>
       </Grid>
-      <AvengerTable
+      <Table
         isToolbarVisible={true}
         title={t("OwnedSets")}
         columns={columns}

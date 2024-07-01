@@ -275,6 +275,14 @@ const themeDefault = (mode) => {
               },
             },
           },
+          {
+            props: { variant: "standard" },
+            style: {
+              "& .MuiInputBase-input:focus": {
+                backgroundColor: "transparent"
+              },
+            },
+          },
         ],
       },
       MuiAutocomplete: {
