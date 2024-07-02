@@ -78,7 +78,7 @@
   "allProcessesSchedule": "Schedulazione su tutti i processi",
   "anagrafica": "Anagrafica",
   "annullaButton": "Annulla",
-  "applicationName": "Ball's Collection",
+  "applicationName": "Andrea Balasso",
   "assigneesGroups": "Assegnatari gruppo",
   "assigneesUsers": "Assegnatari utente",
   "attention": "Attenzione",
@@ -415,7 +415,7 @@
   "gestioneWorkersTitle": "Gestione Workers",
   "gestioneworkers": "Gestione workers",
   "globalMaxResults": "Risultati max (cross-regola)",
-  "goToHomeButton": "Torna alla Home",
+  "goToHomeButton": "Torna al profilo",
   "group": "Gruppo",
   "handleAll": "Gestisci tutti",
   "hasCron": "Cron",
@@ -1673,7 +1673,7 @@
   "brand": "Marca",
   "subBrand": "Linea",
   "Wishlist": "Wishlist",
-  "Home": "Lista LEGO",
+  "Home": "Collezione",
   "noSetFound": "Nessun set trovato",
   "OwnedSets": "Set che ho",
   "clear": "Pulisci filtri",
@@ -1685,5 +1685,6 @@
   "cm": "cm",
   "width": "Larghezza",
   "height": "Altezza",
-  "openMenu": "Apri menu"
+  "openMenu": "Apri menu",
+  "WhoAmI": "Chi è Andrea"
 }

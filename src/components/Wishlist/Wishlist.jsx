@@ -38,14 +38,14 @@ const Wishlist = () => {
   }, [update]);
 
   const filter = () => {
-    fetch(`https://eu-central-1.aws.data.mongodb-api.com/app/application-0-tvewibr/endpoint/entrypoint`)
+    /*fetch(`https://eu-central-1.aws.data.mongodb-api.com/app/application-0-tvewibr/endpoint/entrypoint`)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
       setFilteredData(data);
-    });
-    
+    });*/
+    setFilteredData(data);
   };
 
   const columns = useMemo(() => {

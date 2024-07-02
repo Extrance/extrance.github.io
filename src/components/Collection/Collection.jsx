@@ -11,9 +11,9 @@ import SearchLogo from "../UI/Buttons/SearchLogo";
 import ClearLogo from "../UI/Buttons/ClearLogo";
 import { useNavigate } from "react-router-dom";
 import { removeDuplicates } from "../../util/utilFunction";
-import {Table} from "../common";
+import { Table } from "../common";
 
-const Home = () => {
+const Collection = () => {
   const { t } = useTranslation();
   const windowSize = useWindowSize();
   const alert = useAlert();
@@ -113,18 +113,20 @@ const Home = () => {
             size="small"
           />
         </Grid>
-        <Grid>
-          <Select
-            label={t("brand")}
-            variant="standard"
-            value={brand}
-            style={{ width: 150 }}
-            onChange={(e) => setBrand(e.target.value)}
-            size="small"
-          >
-            {brands.map((item) => { return <MenuItem key={item} value={item}>{item}</MenuItem> })}
-          </Select>
-        </Grid>
+        {windowSize.width > 600 && (
+          <Grid>
+            <Select
+              label={t("brand")}
+              variant="standard"
+              value={brand}
+              style={{ width: 150 }}
+              onChange={(e) => setBrand(e.target.value)}
+              size="small"
+            >
+              {brands.map((item) => { return <MenuItem key={item} value={item}>{item}</MenuItem> })}
+            </Select>
+          </Grid>
+        )}
         <Grid>
           <Stack direction="row">
             <SearchLogo
@@ -162,7 +164,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Collection;
 
 const BoxStyle = styled(Box)(() => ({
   marginTop: "20px",

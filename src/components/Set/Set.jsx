@@ -19,7 +19,7 @@ const Set = () => {
   useEffect(() => {
     const fetchData = () => {
       fetch(
-        `https://raw.githubusercontent.com/Extrance/data/main/reviews/${pathname.split("/Home/")[1]
+        `https://raw.githubusercontent.com/Extrance/data/main/reviews/${pathname.split("/Collection/")[1]
         }.json`
       )
         .then((res) => res.json())
@@ -59,7 +59,7 @@ const Set = () => {
             color="primary"
             aria-label="gotohome-button"
             onClick={() => {
-              navigate("/Home");
+              navigate("/WhoAmI");
             }}
           >
             {t("goToHomeButton")}

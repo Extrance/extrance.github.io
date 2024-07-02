@@ -81,7 +81,7 @@
   "allProcessesSchedule": "Schedule all processes",
   "anagrafica": "Details",
   "annullaButton": "Discard",
-  "applicationName": "Ball's Collection",
+  "applicationName": "Andrea Balasso",
   "assigneesGroups": "Assignees groups",
   "assigneesUsers": "Assignees users",
   "attention": "Warning",
@@ -417,7 +417,7 @@
   "genericErrorTitle": "An error occurred!",
   "gestioneworkers": "Manage workers",
   "globalMaxResults": "Global max results (cross-rule)",
-  "goToHomeButton": "Back to Home",
+  "goToHomeButton": "Back to my profile",
   "group": "Group",
   "handleAll": "Handle all",
   "hasCron": "Cron",
@@ -1672,7 +1672,7 @@
   "brand": "Brand",
   "subBrand": "Sub brand",
   "Wishlist": "Wishlist",
-  "Home": "LEGO list",
+  "Home": "Collection",
   "noSetFound": "No set found",
   "OwnedSets": "Owned sets",
   "clear": "Clear",
@@ -1684,5 +1684,6 @@
   "cm": "cm",
   "width": "Width",
   "height": "Height",
-  "openMenu": "Open menu"
+  "openMenu": "Open menu",
+  "WhoAmI": "Who am I"
 }

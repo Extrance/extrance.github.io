@@ -6,10 +6,11 @@ import {
 import Layout from "../Layout";
 import ErrorPage from "../Error/ErrorPage";
 
-import Home from "../Home/Home";
+import Home from "../Collection/Collection";
 import Wishlist from "../Wishlist/Wishlist";
 import Set from "../Set/Set";
-
+import WhoAmI from "../WhoAmI/WhoAmI";
+import Collection from "../Collection/Collection";
 
 export const router = createHashRouter([
   {
@@ -20,14 +21,23 @@ export const router = createHashRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/Home" />,
+        element: <Navigate to="/WhoAmI" />,
       },
       {
-        path: "/Home",
+        path: "/WhoAmI",
         children: [
           {
             index: true,
-            element: <Home />,
+            element: <WhoAmI />,
+          },
+        ],
+      },
+      {
+        path: "/Collection",
+        children: [
+          {
+            index: true,
+            element: <Collection />,
           },
           {
             path: ":id",
@@ -38,6 +48,10 @@ export const router = createHashRouter([
       {
         path: "/Wishlist",
         element: <Wishlist />,
+      },
+      {
+        path: "/whoami",
+        element: <WhoAmI />,
       },
       {
         path: "*",

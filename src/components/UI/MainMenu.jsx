@@ -12,6 +12,7 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from '@mui/icons-material/Home';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
 const openedMixin = (theme) => ({
   width: theme.drawerMainMenuWidth,
@@ -73,22 +74,42 @@ const MainMenu = (props) => {
             title={!props.openDrawer ? t("Home") : ""}
             placement="right"
           >
-            <ListItem
-              key="Home"
+            <ListItemButton
+              key="WhoAmI"
               disablePadding
-              selected={location?.pathname.startsWith("/Home")}
+              selected={location?.pathname.startsWith("/WhoAmI")}
+              onClick={() => {
+                navigate("WhoAmI");
+              }}
             >
-              <ListItemButton
-                onClick={() => {
-                  navigate("Home");
-                }}
-              >
-                <ListItemIcon>
-                  <ChecklistIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary={t("Home")} />
-              </ListItemButton>
-            </ListItem>
+              <ListItemIcon>
+                <PersonSearchIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary={t("WhoAmI")} />
+            </ListItemButton>
+          </Tooltip>
+
+          <Divider />
+
+          <Tooltip
+            title={!props.openDrawer ? t("Home") : ""}
+            placement="right"
+          >
+
+            <ListItemButton
+              key="Collection"
+              disablePadding
+              selected={location?.pathname.startsWith("/Collection")}
+              onClick={() => {
+                navigate("Collection");
+              }}
+            >
+              <ListItemIcon>
+                <ChecklistIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary={t("Home")} />
+            </ListItemButton>
+
           </Tooltip>
 
           <Divider />
@@ -97,22 +118,21 @@ const MainMenu = (props) => {
             title={!props.openDrawer ? t("Wishlist") : ""}
             placement="right"
           >
-            <ListItem
+
+            <ListItemButton
               key="Wishlist"
               disablePadding
               selected={location?.pathname.startsWith("/Wishlist")}
+              onClick={() => {
+                navigate("Wishlist");
+              }}
             >
-              <ListItemButton
-                onClick={() => {
-                  navigate("Wishlist");
-                }}
-              >
-                <ListItemIcon>
-                  <CardGiftcardIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary={t("Wishlist")} />
-              </ListItemButton>
-            </ListItem>
+              <ListItemIcon>
+                <CardGiftcardIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary={t("Wishlist")} />
+            </ListItemButton>
+
           </Tooltip>
 
         </List>

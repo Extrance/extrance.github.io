@@ -217,7 +217,15 @@ const Header = ({
         <MenuItem
           onClick={() => {
             handleClose();
-            navigate("/Home");
+            navigate("/WhoAmI");
+          }}
+        >
+          {t("WhoAmI")}
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            navigate("/Collection");
           }}
         >
           {t("Home")}
