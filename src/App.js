@@ -16,8 +16,10 @@ function App() {
   const themeColorMode = useContext(ThemeColorModeContext);
 
   useEffect(() => {
+    /*if (!localStorage.getItem('mode'))
+      localStorage.setItem('mode', (window.matchMedia('(prefers-color-scheme: dark)').matches || window.matchMedia('(prefers-dark-interface)').matches) ? 'dark' : 'light');*/
     if (!localStorage.getItem('mode'))
-      localStorage.setItem('mode', (window.matchMedia('(prefers-color-scheme: dark)').matches || window.matchMedia('(prefers-dark-interface)').matches) ? 'dark' : 'light');
+      localStorage.setItem('mode', 'light');
   }, []);
 
   return (

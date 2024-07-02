@@ -200,7 +200,6 @@ const themeDefault = (mode) => {
       MuiTableContainer: {
         styleOverrides: {
           root: {
-            padding: "0px 8px",
             borderRadius: "4px",
           },
         },

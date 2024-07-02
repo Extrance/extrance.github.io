@@ -27,7 +27,7 @@ export default function SpeedDial() {
       <Backdrop open={open} />
       <Dial
         ariaLabel="SpeedDial tooltip example"
-        sx={{ position: 'absolute', bottom: 16, right: 16 }}
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
         icon={<SpeedDialIcon sx={{ color: theme.palette.mode === "dark" ? "black" : "white" }} />}
         onClose={handleClose}
         onOpen={handleOpen}

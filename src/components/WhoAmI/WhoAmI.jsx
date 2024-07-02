@@ -44,9 +44,9 @@ const WhoAmI = () => {
       <div>Questa webapp nasce per offrire ai miei amici una lista aggiornata e facilmente consultabile di quello che ho (e specialmente quello che mi manca) per facilitare la scelta all'avvicinarsi del mio compleanno :)</div>
       <div>Già che c'ero, però, ho deciso di sfruttare l'occasione per implementare mano a mano sempre più funzioni, con come obiettivo primario il far pratica con diverse tecnologie, e andare ad offrire sempre più sezioni diverse e opzioni, ad amici e non.</div>
       <br/>
-      <div>L'applicazione è attualmente WIP, vedrò di aggiornare il progetto mano a mano che troverò tecnologie che ritengo interessante integrare in questa webapp, ma soprattutto mano a mano che la mia creatività partorirà idee per me divertenti e/o utii per chi frequenta questo sito.</div>
+      <div>L'applicazione è attualmente WIP, vedrò di aggiornare il progetto mano a mano che troverò tecnologie che riterrò interessante integrare in questa webapp, ma soprattutto mano a mano che la mia creatività partorirà idee per me divertenti e/o utii per chi frequenta questo sito.</div>
       <br/>
-      <div style={{float: 'right'}}>Enjoy!</div>
+      <div style={{float: 'right', marginBottom: "80px"}}>Enjoy!</div>
       <SpeedDial/>
     </BoxStyle>
   );
