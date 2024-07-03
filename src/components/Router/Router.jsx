@@ -6,7 +6,6 @@ import {
 import Layout from "../Layout";
 import ErrorPage from "../Error/ErrorPage";
 
-import Home from "../Collection/Collection";
 import Wishlist from "../Wishlist/Wishlist";
 import Set from "../Set/Set";
 import WhoAmI from "../WhoAmI/WhoAmI";

@@ -13,6 +13,10 @@ import {
   Avatar,
   Switch,
 } from "@mui/material";
+import ListItemText from "@mui/material/ListItemText";
+import ChecklistIcon from "@mui/icons-material/Checklist";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import AppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -33,8 +37,9 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useWindowSize } from "../../../store/ResizeProvider";
 import { useLocation, useNavigate } from "react-router-dom";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import Extrance_D from '../../../imgs/Extrance_D.png';
+import Extrance_L from '../../../imgs/Extrance_L.png';
 /*
   Oggetto Header
 */
@@ -139,23 +144,18 @@ const Header = ({
       >
         <Toolbar variant="dense">
           {!isMobile ? (
-            <Tooltip
-            title={
-              t("openMenu")
-            }
-            placement="bottom-start"
-          >
-            <IconButton
-              size="medium"
-              edge="start"
-              color="inherit"
-              aria-label="menu-drawer"
-              onClick={handleDrawer}
-              //sx={{ mr: 2, ...(window.innerWidth < 1200 && { display: "none" }) }}
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
+            <Tooltip title={t("menu")} placement="bottom-start">
+              <IconButton
+                size="medium"
+                edge="start"
+                color="inherit"
+                aria-label="menu-drawer"
+                onClick={handleDrawer}
+                //sx={{ mr: 2, ...(window.innerWidth < 1200 && { display: "none" }) }}
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
             </Tooltip>
           ) : (
             <IconButton
@@ -173,17 +173,17 @@ const Header = ({
           )}
 
           {path.length > 0 ? (
-            <Tooltip
-              title={
-                t("backButton")
-              }
-              placement="bottom-start"
-            >
-              <IconButton style={{ backgroundColor: 'transparent' }} onClick={() => navigate(-1)}>
+            <Tooltip title={t("backButton")} placement="bottom-start">
+              <IconButton
+                style={{ backgroundColor: "transparent" }}
+                onClick={() => navigate(-1)}
+              >
                 <ArrowBackIosNewIcon />
               </IconButton>
             </Tooltip>
-          ) : (<div style={{ width: 40 }}></div>)}
+          ) : (
+            <img src={theme.palette.mode === "dark" ? Extrance_D : Extrance_L} style={{ width: 40 }} alt="Logo" />
+          )}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
@@ -215,28 +215,40 @@ const Header = ({
         }}
       >
         <MenuItem
+          selected={location?.pathname.startsWith("/WhoAmI")}
           onClick={() => {
             handleClose();
             navigate("/WhoAmI");
           }}
         >
-          {t("WhoAmI")}
+          <ListItemIcon>
+            <PersonSearchIcon color="inherit" />
+          </ListItemIcon>
+          <ListItemText primary={t("WhoAmI")} />
         </MenuItem>
         <MenuItem
+          selected={location?.pathname.startsWith("/Collection")}
           onClick={() => {
             handleClose();
             navigate("/Collection");
           }}
         >
-          {t("Home")}
+          <ListItemIcon>
+            <ChecklistIcon color="inherit" />
+          </ListItemIcon>
+          <ListItemText primary={t("LEGO")} />
         </MenuItem>
         <MenuItem
+          selected={location?.pathname.startsWith("/Wishlist")}
           onClick={() => {
             handleClose();
             navigate("/Wishlist");
           }}
         >
-          {t("Wishlist")}
+          <ListItemIcon>
+            <CardGiftcardIcon color="inherit" />
+          </ListItemIcon>
+          <ListItemText primary={t("Wishlist")} />
         </MenuItem>
       </Menu>
     </Box>

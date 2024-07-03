@@ -11,15 +11,17 @@ import i18n from "./i18next/i18n";
 import React from "react";
 import ResizeDetector from "react-resize-detector";
 import ThemeColorModeContext from "./store/theme-colormode-context";
+import { useClearCache } from "react-clear-cache";
 
 function App() {
   const themeColorMode = useContext(ThemeColorModeContext);
+  const { isLatestVersion, emptyCacheStorage } = useClearCache();
 
   useEffect(() => {
+    if (!isLatestVersion) emptyCacheStorage();
     /*if (!localStorage.getItem('mode'))
       localStorage.setItem('mode', (window.matchMedia('(prefers-color-scheme: dark)').matches || window.matchMedia('(prefers-dark-interface)').matches) ? 'dark' : 'light');*/
-    if (!localStorage.getItem('mode'))
-      localStorage.setItem('mode', 'light');
+    if (!localStorage.getItem("mode")) localStorage.setItem("mode", "light");
   }, []);
 
   return (

@@ -5,11 +5,9 @@ import { useTranslation } from "react-i18next";
 
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import HomeIcon from '@mui/icons-material/Home';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
@@ -71,7 +69,7 @@ const MainMenu = (props) => {
         <List aria-label="main mailbox folders">
 
           <Tooltip
-            title={!props.openDrawer ? t("Home") : ""}
+            title={!props.openDrawer ? t("WhoAmI") : ""}
             placement="right"
           >
             <ListItemButton
@@ -92,7 +90,7 @@ const MainMenu = (props) => {
           <Divider />
 
           <Tooltip
-            title={!props.openDrawer ? t("Home") : ""}
+            title={!props.openDrawer ? t("LEGO") : ""}
             placement="right"
           >
 
@@ -107,7 +105,7 @@ const MainMenu = (props) => {
               <ListItemIcon>
                 <ChecklistIcon color="primary" />
               </ListItemIcon>
-              <ListItemText primary={t("Home")} />
+              <ListItemText primary={t("LEGO")} />
             </ListItemButton>
 
           </Tooltip>

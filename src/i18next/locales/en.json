@@ -1685,5 +1685,8 @@
   "width": "Width",
   "height": "Height",
   "openMenu": "Open menu",
-  "WhoAmI": "Who am I"
+  "WhoAmI": "Who am I",
+  "LEGO": "LEGO",
+  "price": "Price",
+  "menu": "Menu"
 }

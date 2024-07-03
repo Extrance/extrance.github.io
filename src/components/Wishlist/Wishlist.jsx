@@ -1,12 +1,14 @@
-import { Box, Stack } from "@mui/material";
+import { Box, ClickAwayListener, Slider, Stack, Tooltip, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState, useMemo } from "react";
 import { useAlert } from "../../store/AlertProvider";
 import { useWindowSize } from "../../store/ResizeProvider";
 import { Table } from "../common";
 
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import styled from "@emotion/styled";
 import LinkLogo from "../UI/Buttons/LinkLogo";
+import SavingsIcon from "@mui/icons-material/Savings";
 
 const Wishlist = () => {
   const { t } = useTranslation();
@@ -16,9 +18,20 @@ const Wishlist = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [update, setUpdate] = useState(null);
+  const [price, setPrice] = useState(150);
+
+  const [open, setOpen] = useState(false);
+
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setOpen(true);
+  };
 
   useEffect(() => {
-    document.title = "Ball's Collection - Wishlist";
+    document.title = t("applicationName") + " - Wishlist";
     const fetchData = () => {
       fetch(
         "https://raw.githubusercontent.com/Extrance/data/main/wishlist.json"
@@ -45,7 +58,7 @@ const Wishlist = () => {
     .then((data) => {
       setFilteredData(data);
     });*/
-    setFilteredData(data);
+    setFilteredData(data.filter((item) => item.price <= price));
   };
 
   const columns = useMemo(() => {
@@ -59,9 +72,14 @@ const Wishlist = () => {
         header: t("brand"),
         accessorKey: "brand",
         size: "small",
-        cell: (({ row }) => (
-          <Stack display="flex" justifyContent="center" minHeight="33px"><div>{row.original.brand}</div>{row.original?.subBrand && <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>}</Stack>
-        )),
+        cell: ({ row }) => (
+          <Stack display="flex" justifyContent="center" minHeight="33px">
+            <div>{row.original.brand}</div>
+            {row.original?.subBrand && (
+              <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>
+            )}
+          </Stack>
+        ),
       },
       {
         header: t("name"),
@@ -75,7 +93,7 @@ const Wishlist = () => {
         cell: ({ row }) => (
           <LinkLogo
             props={{
-              onClick: () => window.open(row.original.ref, "_blank")
+              onClick: () => window.open(row.original.ref, "_blank"),
             }}
           />
         ),
@@ -83,15 +101,51 @@ const Wishlist = () => {
     ];
   }, [filteredData]);
 
+  const handleChange = (event, newValue) => {
+    if (typeof newValue === "number") {
+      setPrice(newValue);
+    }
+  };
+
   return (
     <Box>
       <BoxStyle>
+        <Grid
+          container
+          style={{ marginTop: 30, marginLeft: 10, marginRight: 10 }}
+        >
+          <Grid
+            xs={12}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+
+            <Tooltip disableFocusListener title={t("price")} enterTouchDelay={0} placement="right" style={{ marginRight: 20 }}>
+              <SavingsIcon />
+            </Tooltip>
+
+            <Slider
+              aria-label="Price"
+              value={price}
+              onChangeCommitted={() => setUpdate((val) => !val)}
+              valueLabelDisplay="auto"
+              max={200}
+              onChange={handleChange}
+              min={0}
+              color="primary"
+            />
+          </Grid>
+        </Grid>
+
         <Table
           columns={columns}
           isToolbarVisible={true}
           title={t("Wishlist")}
           data={filteredData}
-          hiddenColumns={{id: windowSize.width > 600}}
+          hiddenColumns={{ id: windowSize.width > 600 }}
           isPaginated={true}
           size="small"
           warning="noSetFound"

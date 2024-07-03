@@ -36,6 +36,11 @@ const WhoAmI = () => {
     fetchData();
   }, []);*/
 
+  useEffect(() => {
+    document.title = t("applicationName");
+  }, [])
+  
+
   const navigate = useNavigate();
 
   return (

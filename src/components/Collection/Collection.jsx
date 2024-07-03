@@ -38,7 +38,7 @@ const Collection = () => {
         .catch(() => alert.showErrorAlert(t("errorRetrieve")))
         .finally(() => setUpdate(!update));
     };
-    document.title = "Ball's Collection";
+    document.title = t("applicationName")+ " - " + t("Home");
     fetchData();
   }, []);
 

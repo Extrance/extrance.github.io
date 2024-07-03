@@ -111,7 +111,7 @@ const AvengerTable = ({
 
   // Render the UI for your table
   return (
-    <TableContainer sx={{ flex: "1 1 100%" }}>
+    <TableContainer sx={{ flex: "1 1 100%", overflowX:'scroll' }}>
       {isToolbarVisible && (
         <TableToolbar title={title} componentAction={componentAction} />
       )}

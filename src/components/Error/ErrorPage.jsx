@@ -26,7 +26,7 @@ const ErrorPage = ({
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = "Ball's Collection";
+    document.title = t("applicationName");
   }, [])
 
   useEffect(() => {
