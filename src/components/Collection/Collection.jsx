@@ -1,4 +1,4 @@
-import { Box, Button, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
+import { Box as MuiBox, Button, Chip, Stack, TextField } from "@mui/material";
 import { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../store/ResizeProvider";
@@ -33,12 +33,18 @@ const Collection = () => {
         .then((res) => res.json())
         .then((out) => {
           setData(out.data);
-          setBrands(removeDuplicates(out.data.map((item) => { return item.brand })));
+          setBrands(
+            removeDuplicates(
+              out.data.map((item) => {
+                return item.brand;
+              })
+            )
+          );
         })
         .catch(() => alert.showErrorAlert(t("errorRetrieve")))
         .finally(() => setUpdate(!update));
     };
-    document.title = t("applicationName")+ " - " + t("Home");
+    document.title = t("applicationName") + " - " + t("Home");
     fetchData();
   }, []);
 
@@ -52,7 +58,8 @@ const Collection = () => {
       data.filter(
         (item) =>
           item.id.includes(num) &&
-          item.name.includes(name)
+          item.name.includes(name) &&
+          item.brand.includes(brand)
       )
     );
   };
@@ -76,7 +83,12 @@ const Collection = () => {
         accessorKey: "brand",
         size: "small",
         cell: ({ row }) => (
-          <Stack display="flex" justifyContent="center" minHeight="33px"><div>{row.original.brand}</div>{row.original?.subBrand && <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>}</Stack>
+          <Stack display="flex" justifyContent="center" minHeight="33px">
+            <div>{row.original.brand}</div>
+            {row.original?.subBrand && (
+              <div style={{ fontSize: 10 }}>{row.original.subBrand}</div>
+            )}
+          </Stack>
         ),
       },
       {
@@ -89,7 +101,7 @@ const Collection = () => {
   }, [filteredData]);
 
   return (
-    <BoxStyle>
+    <Box>
       <Grid container spacing={1}>
         {windowSize.width > 600 && (
           <Grid>
@@ -113,20 +125,6 @@ const Collection = () => {
             size="small"
           />
         </Grid>
-        {windowSize.width > 600 && (
-          <Grid>
-            <Select
-              label={t("brand")}
-              variant="standard"
-              value={brand}
-              style={{ width: 150 }}
-              onChange={(e) => setBrand(e.target.value)}
-              size="small"
-            >
-              {brands.map((item) => { return <MenuItem key={item} value={item}>{item}</MenuItem> })}
-            </Select>
-          </Grid>
-        )}
         <Grid>
           <Stack direction="row">
             <SearchLogo
@@ -143,13 +141,38 @@ const Collection = () => {
                 onClick: () => {
                   setNum("");
                   setName("");
-                  setUpdate(!update);
+                  setBrand("");
+                  setUpdate((val) => !val);
                 },
               }}
             />
           </Stack>
         </Grid>
       </Grid>
+      {windowSize.width > 600 && (
+        <Grid container spacing={1}>
+          {brands.map((el, index) => {
+            return (
+              <Chip
+                key={index}
+                style={{
+                  marginRight: "5px",
+                  marginBottom: "5px",
+                  fontWeight: "bold",
+                }}
+                label={el}
+                color="primary"
+                value={el}
+                variant={el === brand ? "contained" : "outlined"}
+                onClick={(e) => {
+                  setBrand(e.target.outerText);
+                  setUpdate((val) => !val);
+                }}
+              />
+            );
+          })}
+        </Grid>
+      )}
       <Table
         isToolbarVisible={true}
         title={t("OwnedSets")}
@@ -160,14 +183,13 @@ const Collection = () => {
         isPaginated={true}
         rowsperpageslist={[10, 50, 100]}
       />
-    </BoxStyle>
+    </Box>
   );
 };
 
 export default Collection;
 
-const BoxStyle = styled(Box)(() => ({
+const Box = styled(MuiBox)(() => ({
   marginTop: "20px",
-  paddingLeft: "25px",
-  paddingRight: "25px",
+  padding: "0px 25px 0px 25px",
 }));

@@ -54,6 +54,7 @@ const getThemePaletteExtrance = (mode) => {
       },
       primary: {
         main: arcOrange,
+        contrastText: arcWhite,
       },
       secondary: {
         main: arcBlue,
@@ -129,31 +130,36 @@ const themeDefault = (mode) => {
       MuiButton: {
         styleOverrides: {
           root: ({ ownerState }) => ({
-            ...(ownerState.variant === "contained" && (themePalette.palette.mode === "dark"
-              ? {
-                backgroundColor: themePalette.palette[ownerState.color]?.light,
-              }
-              : {
-                backgroundColor: themePalette.palette[ownerState.color]?.main,
-              })),
-            ...(ownerState.variant === "outlined" && (themePalette.palette.mode === "dark"
-              ? {
-                color: themePalette.palette[ownerState.color]?.light,
-                borderColor: themePalette.palette[ownerState.color]?.light,
-              }
-              : {
-                color: themePalette.palette[ownerState.color]?.main,
-                borderColor: themePalette.palette[ownerState.color]?.main,
-              })),
-            ...(ownerState.variant === "text" && (themePalette.palette.mode === "dark"
-              ? {
-                color: themePalette.palette[ownerState.color]?.light,
-                padding: "0px 0px",
-              }
-              : {
-                color: themePalette.palette[ownerState.color]?.main,
-                padding: "0px 0px",
-              })),
+            ...(ownerState.variant === "contained" &&
+              (themePalette.palette.mode === "dark"
+                ? {
+                    backgroundColor:
+                      themePalette.palette[ownerState.color]?.light,
+                  }
+                : {
+                    backgroundColor:
+                      themePalette.palette[ownerState.color]?.main,
+                  })),
+            ...(ownerState.variant === "outlined" &&
+              (themePalette.palette.mode === "dark"
+                ? {
+                    color: themePalette.palette[ownerState.color]?.light,
+                    borderColor: themePalette.palette[ownerState.color]?.light,
+                  }
+                : {
+                    color: themePalette.palette[ownerState.color]?.main,
+                    borderColor: themePalette.palette[ownerState.color]?.main,
+                  })),
+            ...(ownerState.variant === "text" &&
+              (themePalette.palette.mode === "dark"
+                ? {
+                    color: themePalette.palette[ownerState.color]?.light,
+                    padding: "0px 0px",
+                  }
+                : {
+                    color: themePalette.palette[ownerState.color]?.main,
+                    padding: "0px 0px",
+                  })),
           }),
         },
       },
@@ -182,9 +188,30 @@ const themeDefault = (mode) => {
       MuiChip: {
         styleOverrides: {
           root: ({ ownerState }) => ({
-            ...(themePalette.palette.mode === "dark"
-              ? { backgroundColor: themePalette.palette[ownerState.color]?.light }
-              : { backgroundColor: themePalette.palette[ownerState.color]?.main }),
+            ...(ownerState.variant === "contained" &&
+              (themePalette.palette.mode === "dark"
+                ? {
+                    backgroundColor:
+                      themePalette.palette[ownerState.color]?.light,
+                    borderColor: themePalette.palette[ownerState.color]?.light,
+                  }
+                : {
+                    backgroundColor:
+                      themePalette.palette[ownerState.color]?.main,
+                    borderColor: themePalette.palette[ownerState.color]?.light,
+                  })),
+            ...(ownerState.variant === "outlined" &&
+              (themePalette.palette.mode === "dark"
+                ? {
+                    color: themePalette.palette[ownerState.color]?.light,
+
+                    borderColor: themePalette.palette[ownerState.color]?.light,
+                  }
+                : {
+                    color: themePalette.palette[ownerState.color]?.main,
+
+                    borderColor: themePalette.palette[ownerState.color]?.light,
+                  })),
           }),
         },
       },
@@ -192,8 +219,8 @@ const themeDefault = (mode) => {
         styleOverrides: {
           root: ({ ownerState }) => ({
             ...(themePalette.palette.mode === "dark"
-                ? { color: themePalette.palette[ownerState.color]?.light }
-                : { color: themePalette.palette[ownerState.color]?.main }),
+              ? { color: themePalette.palette[ownerState.color]?.light }
+              : { color: themePalette.palette[ownerState.color]?.main }),
           }),
         },
       },
@@ -278,7 +305,7 @@ const themeDefault = (mode) => {
             props: { variant: "standard" },
             style: {
               "& .MuiInputBase-input:focus": {
-                backgroundColor: "transparent"
+                backgroundColor: "transparent",
               },
             },
           },
@@ -342,8 +369,8 @@ const themeDefault = (mode) => {
         styleOverrides: {
           root: ({ ownerState }) => ({
             ...(themePalette.palette.mode === "dark"
-                ? { color: themePalette.palette[ownerState.color]?.light }
-                : { color: themePalette.palette[ownerState.color]?.main }),
+              ? { color: themePalette.palette[ownerState.color]?.light }
+              : { color: themePalette.palette[ownerState.color]?.main }),
           }),
         },
         variants: [
@@ -379,17 +406,17 @@ const themeDefault = (mode) => {
               backgroundColor: "#6b6b6b",
             },
             "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
-            {
-              backgroundColor: "#959595",
-            },
+              {
+                backgroundColor: "#959595",
+              },
             "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active":
-            {
-              backgroundColor: "#959595",
-            },
+              {
+                backgroundColor: "#959595",
+              },
             "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover":
-            {
-              backgroundColor: "#959595",
-            },
+              {
+                backgroundColor: "#959595",
+              },
             "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
               backgroundColor: "#2b2b2b",
             },
