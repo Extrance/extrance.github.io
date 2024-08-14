@@ -20,13 +20,13 @@ const Set = () => {
   useEffect(() => {
     const fetchData = () => {
       fetch(
-        `https://raw.githubusercontent.com/Extrance/data/main/data/${pathname.split("/Collection/")[1]
+        `https://raw.githubusercontent.com/Extrance/data/main/data/${pathname.split(BULLET.BRICKS+"/")[1]
         }.json`
       )
         .then((res) => res.json())
         .then((out) => setData(out))
         .catch((e) => alert.showErrorAlert(t("errorRetrieve")))
-        .finally(() => setUpdate(!update));
+        .finally(() => setUpdate(val => !val));
     };
     fetchData();
   }, []);

@@ -28,6 +28,7 @@ import MainMenu from "../MainMenu";
 import Extrance_D from '../../../imgs/Extrance_D.png';
 import Extrance_L from '../../../imgs/Extrance_L.png';
 import LegoIcon from "../Icons/LegoIcon";
+import RubikIcon from "../Icons/RubikIcon";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -223,22 +224,22 @@ const Header = ({
           <ListItemText primary={t("LEGO")} />
         </MenuItem>
         <MenuItem
-          selected={location?.pathname.startsWith(BULLET.BRICKS)}
-          onClick={() => {
-            handleClose();
-            navigate(BULLET.BRICKS);
-          }}
-        >
-          <ListItemIcon>
-            <LegoIcon color="inherit" />
-          </ListItemIcon>
-          <ListItemText primary={t("Puzzles")} />
-        </MenuItem>
-        <MenuItem
           selected={location?.pathname.startsWith(BULLET.PUZZLES)}
           onClick={() => {
             handleClose();
             navigate(BULLET.PUZZLES);
+          }}
+        >
+          <ListItemIcon>
+            <RubikIcon color="inherit" />
+          </ListItemIcon>
+          <ListItemText primary={t("Puzzles")} />
+        </MenuItem>
+        <MenuItem
+          selected={location?.pathname.startsWith(BULLET.WISHLIST)}
+          onClick={() => {
+            handleClose();
+            navigate(BULLET.WISHLIST);
           }}
         >
           <ListItemIcon>

@@ -10,6 +10,7 @@ import Wishlist from "../Wishlist/Wishlist";
 import Set from "../Set/Set";
 import WhoAmI from "../WhoAmI/WhoAmI";
 import Collection from "../Collection/Collection";
+import Puzzles from "../Puzzles/Puzzles";
 
 export const router = createHashRouter([
   {
@@ -46,7 +47,7 @@ export const router = createHashRouter([
       },
       {
         path: BULLET.PUZZLES,
-        element: <Collection />,
+        element: <Puzzles />,
       },
       {
         path: BULLET.WISHLIST,
