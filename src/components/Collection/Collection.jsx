@@ -3,15 +3,15 @@ import { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../store/ResizeProvider";
 import { useAlert } from "../../store/AlertProvider";
+import { useNavigate } from "react-router-dom";
+import { removeDuplicates } from "../../util/utilFunction";
+import { Table } from "../common";
 
 import styled from "@emotion/styled";
 
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import SearchLogo from "../UI/Buttons/SearchLogo";
 import ClearLogo from "../UI/Buttons/ClearLogo";
-import { useNavigate } from "react-router-dom";
-import { removeDuplicates } from "../../util/utilFunction";
-import { Table } from "../common";
 
 const Collection = () => {
   const { t } = useTranslation();
@@ -20,10 +20,10 @@ const Collection = () => {
   const [num, setNum] = useState("");
   const [name, setName] = useState("");
   const [data, setData] = useState([]);
-  const [brands, setBrands] = useState([]);
+  const [brands, setBrands] = useState([t('all')]);
   const [filteredData, setFilteredData] = useState([]);
   const [update, setUpdate] = useState(null);
-  const [brand, setBrand] = useState("");
+  const [brand, setBrand] = useState('all');
 
   useEffect(() => {
     const fetchData = () => {
@@ -33,19 +33,18 @@ const Collection = () => {
         .then((res) => res.json())
         .then((out) => {
           setData(out.data);
-          setBrands(
-            removeDuplicates(
-              out.data.map((item) => {
-                return item.brand;
-              })
-            )
-          );
+          setBrands(['all'].concat(removeDuplicates(
+            out.data.map((item) => {
+              return item.brand;
+            })
+          )));
         })
         .catch(() => alert.showErrorAlert(t("errorRetrieve")))
-        .finally(() => setUpdate(!update));
+        .finally(() => setUpdate(val => !val));
     };
     document.title = t("applicationName") + " - " + t("Home");
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -59,7 +58,7 @@ const Collection = () => {
         (item) =>
           item.id.includes(num) &&
           item.name.includes(name) &&
-          item.brand.includes(brand)
+          (brand === 'all' || item.brand.includes(brand))
       )
     );
   };
@@ -131,7 +130,7 @@ const Collection = () => {
               disabled={false}
               tooltipLabel={t("search")}
               props={{
-                onClick: () => setUpdate(!update),
+                onClick: () => setUpdate(val => !val),
               }}
             />
             <ClearLogo
@@ -141,7 +140,7 @@ const Collection = () => {
                 onClick: () => {
                   setNum("");
                   setName("");
-                  setBrand("");
+                  setBrand("all");
                   setUpdate((val) => !val);
                 },
               }}
@@ -150,25 +149,25 @@ const Collection = () => {
         </Grid>
       </Grid>
       {windowSize.width > 600 && (
-        <Grid container spacing={1}>
+        <Grid container spacing={0} style={{ gap: "3px" }}>
           {brands.map((el, index) => {
             return (
-              <Chip
-                key={index}
-                style={{
-                  marginRight: "5px",
-                  marginBottom: "5px",
-                  fontWeight: "bold",
-                }}
-                label={el}
-                color="primary"
-                value={el}
-                variant={el === brand ? "contained" : "outlined"}
-                onClick={(e) => {
-                  setBrand(e.target.outerText);
-                  setUpdate((val) => !val);
-                }}
-              />
+              <Grid>
+                <Chip
+                  key={index}
+                  style={{
+                    fontWeight: "bold",
+                  }}
+                  label={t(el)}
+                  color="primary"
+                  value={el}
+                  variant={el === brand ? "contained" : "outlined"}
+                  onClick={() => {
+                    setBrand(el);
+                    setUpdate((val) => !val);
+                  }}
+                />
+              </Grid>
             );
           })}
         </Grid>

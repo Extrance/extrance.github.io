@@ -2,16 +2,17 @@ import { Box, Divider, Toolbar, Tooltip } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
+import { BULLET } from "../Router/paths";
 
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ChecklistIcon from '@mui/icons-material/Checklist';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import LegoIcon from "./Icons/LegoIcon";
+import RubikIcon from "./Icons/RubikIcon";
 
 const openedMixin = (theme) => ({
   width: theme.drawerMainMenuWidth,
@@ -75,10 +76,9 @@ const MainMenu = (props) => {
           >
             <ListItemButton
               key="WhoAmI"
-              disablePadding
-              selected={location?.pathname.startsWith("/WhoAmI")}
+              selected={location?.pathname.startsWith(BULLET.WHOAMI)}
               onClick={() => {
-                navigate("WhoAmI");
+                navigate(BULLET.WHOAMI);
               }}
             >
               <ListItemIcon>
@@ -94,13 +94,11 @@ const MainMenu = (props) => {
             title={!props.openDrawer ? t("LEGO") : ""}
             placement="right"
           >
-
             <ListItemButton
               key="Collection"
-              disablePadding
-              selected={location?.pathname.startsWith("/Collection")}
+              selected={location?.pathname.startsWith(BULLET.BRICKS)}
               onClick={() => {
-                navigate("Collection");
+                navigate(BULLET.BRICKS);
               }}
             >
               <ListItemIcon>
@@ -108,7 +106,26 @@ const MainMenu = (props) => {
               </ListItemIcon>
               <ListItemText primary={t("LEGO")} />
             </ListItemButton>
+          </Tooltip>
 
+          <Divider/>
+
+          <Tooltip
+            title={!props.openDrawer ? t("Puzzles") : ""}
+            placement="right"
+          >
+            <ListItemButton
+              key="Puzzles"
+              selected={location?.pathname.startsWith(BULLET.PUZZLES)}
+              onClick={() => {
+                navigate(BULLET.PUZZLES);
+              }}
+            >
+              <ListItemIcon>
+                <RubikIcon color='primary'/>
+              </ListItemIcon>
+              <ListItemText primary={t("Puzzles")} />
+            </ListItemButton>
           </Tooltip>
 
           <Divider />
@@ -117,13 +134,11 @@ const MainMenu = (props) => {
             title={!props.openDrawer ? t("Wishlist") : ""}
             placement="right"
           >
-
             <ListItemButton
               key="Wishlist"
-              disablePadding
-              selected={location?.pathname.startsWith("/Wishlist")}
+              selected={location?.pathname.startsWith(BULLET.WISHLIST)}
               onClick={() => {
-                navigate("Wishlist");
+                navigate(BULLET.WISHLIST);
               }}
             >
               <ListItemIcon>
@@ -131,7 +146,6 @@ const MainMenu = (props) => {
               </ListItemIcon>
               <ListItemText primary={t("Wishlist")} />
             </ListItemButton>
-
           </Tooltip>
 
         </List>

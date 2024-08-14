@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAlert } from "../../store/AlertProvider";
 
 import styled from "@emotion/styled";
+import { BULLET } from "../Router/paths";
 
 const Set = () => {
   const { t } = useTranslation();
@@ -59,7 +60,7 @@ const Set = () => {
             color="primary"
             aria-label="gotohome-button"
             onClick={() => {
-              navigate("/WhoAmI");
+              navigate(BULLET.WHOAMI);
             }}
           >
             {t("goToHomeButton")}

@@ -2,10 +2,10 @@ import {
   Navigate,
   createHashRouter,
 } from "react-router-dom";
+import { BASE_PATH, BULLET } from "./paths";
 
 import Layout from "../Layout";
 import ErrorPage from "../Error/ErrorPage";
-
 import Wishlist from "../Wishlist/Wishlist";
 import Set from "../Set/Set";
 import WhoAmI from "../WhoAmI/WhoAmI";
@@ -13,17 +13,17 @@ import Collection from "../Collection/Collection";
 
 export const router = createHashRouter([
   {
-    path: "/",
+    path: BASE_PATH,
     element: <Layout />,
     errorElement: <ErrorPage />,
     id: "root",
     children: [
       {
         index: true,
-        element: <Navigate to="/WhoAmI" />,
+        element: <Navigate to={BULLET.WHOAMI} />,
       },
       {
-        path: "/WhoAmI",
+        path: BULLET.WHOAMI,
         children: [
           {
             index: true,
@@ -32,7 +32,7 @@ export const router = createHashRouter([
         ],
       },
       {
-        path: "/Collection",
+        path: BULLET.BRICKS,
         children: [
           {
             index: true,
@@ -45,12 +45,12 @@ export const router = createHashRouter([
         ],
       },
       {
-        path: "/Wishlist",
-        element: <Wishlist />,
+        path: BULLET.PUZZLES,
+        element: <Collection />,
       },
       {
-        path: "/whoami",
-        element: <WhoAmI />,
+        path: BULLET.WISHLIST,
+        element: <Wishlist />,
       },
       {
         path: "*",

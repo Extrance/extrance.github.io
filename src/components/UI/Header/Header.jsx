@@ -1,48 +1,33 @@
-import styled from "@emotion/styled";
 import {
   Box,
-  Chip,
   IconButton,
   ListItemIcon,
   MenuItem,
   Toolbar,
   Tooltip,
   Typography,
-  Divider,
   Menu,
-  Avatar,
   Switch,
 } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useWindowSize } from "../../../store/ResizeProvider";
+import { useLocation, useNavigate } from "react-router-dom";
+import { BULLET } from "../../Router/paths";
+
+import styled from "@emotion/styled";
 import ListItemText from "@mui/material/ListItemText";
-import ChecklistIcon from "@mui/icons-material/Checklist";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import AppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import { useTheme } from "@emotion/react";
-import { useContext, useEffect, useState } from "react";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ThemeColorModeContext from "../../../store/theme-colormode-context";
 import MainMenu from "../MainMenu";
-import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-import { useTranslation } from "react-i18next";
-import {
-  getUsername,
-  getUsernameInitials,
-} from "../../../util/auth/authStorage";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useWindowSize } from "../../../store/ResizeProvider";
-import { useLocation, useNavigate } from "react-router-dom";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Extrance_D from '../../../imgs/Extrance_D.png';
 import Extrance_L from '../../../imgs/Extrance_L.png';
-/*
-  Oggetto Header
-*/
+import LegoIcon from "../Icons/LegoIcon";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -93,7 +78,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const Header = ({
   title,
-  logo,
   openDrawer,
   handleDrawerOpen,
   handleDrawerClose,
@@ -215,10 +199,10 @@ const Header = ({
         }}
       >
         <MenuItem
-          selected={location?.pathname.startsWith("/WhoAmI")}
+          selected={location?.pathname.startsWith(BULLET.WHOAMI)}
           onClick={() => {
             handleClose();
-            navigate("/WhoAmI");
+            navigate(BULLET.WHOAMI);
           }}
         >
           <ListItemIcon>
@@ -227,22 +211,34 @@ const Header = ({
           <ListItemText primary={t("WhoAmI")} />
         </MenuItem>
         <MenuItem
-          selected={location?.pathname.startsWith("/Collection")}
+          selected={location?.pathname.startsWith(BULLET.BRICKS)}
           onClick={() => {
             handleClose();
-            navigate("/Collection");
+            navigate(BULLET.BRICKS);
           }}
         >
           <ListItemIcon>
-            <ChecklistIcon color="inherit" />
+            <LegoIcon color="inherit" />
           </ListItemIcon>
           <ListItemText primary={t("LEGO")} />
         </MenuItem>
         <MenuItem
-          selected={location?.pathname.startsWith("/Wishlist")}
+          selected={location?.pathname.startsWith(BULLET.BRICKS)}
           onClick={() => {
             handleClose();
-            navigate("/Wishlist");
+            navigate(BULLET.BRICKS);
+          }}
+        >
+          <ListItemIcon>
+            <LegoIcon color="inherit" />
+          </ListItemIcon>
+          <ListItemText primary={t("Puzzles")} />
+        </MenuItem>
+        <MenuItem
+          selected={location?.pathname.startsWith(BULLET.PUZZLES)}
+          onClick={() => {
+            handleClose();
+            navigate(BULLET.PUZZLES);
           }}
         >
           <ListItemIcon>
@@ -264,17 +260,4 @@ export const DrawerHeader = styled("div")(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: "flex-end",
-}));
-
-const LogoImg = styled.img(() => ({
-  width: "auto",
-  height: "40px",
-  marginRight: "10px",
-}));
-
-const TextUserStyle = styled(Typography)(() => ({
-  margin: "0",
-  fontSize: 14,
-  fontWeight: "bold",
-  textAlign: "right",
 }));

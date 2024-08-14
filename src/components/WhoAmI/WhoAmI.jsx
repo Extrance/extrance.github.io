@@ -3,24 +3,14 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useWindowSize } from "../../store/ResizeProvider";
-import { useAlert } from "../../store/AlertProvider";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import styled from "@emotion/styled";
 
-import { useNavigate } from "react-router-dom";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SpeedDial from "../common/custom/SpeedDial";
-import RubikIcon from "../UI/Icons/RubikIcon";
+import styled from "@emotion/styled";
 
 const WhoAmI = () => {
   const { t } = useTranslation();
@@ -44,9 +34,8 @@ const WhoAmI = () => {
 
   useEffect(() => {
     document.title = t("applicationName");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const navigate = useNavigate();
 
   return (
     <BoxStyle>

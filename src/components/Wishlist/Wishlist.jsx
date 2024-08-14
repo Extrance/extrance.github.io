@@ -1,4 +1,4 @@
-import { Box, ClickAwayListener, Slider, Stack, Tooltip, Typography } from "@mui/material";
+import { Box, Chip, Slider, Stack, Tooltip } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState, useMemo } from "react";
 import { useAlert } from "../../store/AlertProvider";
@@ -19,16 +19,10 @@ const Wishlist = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [update, setUpdate] = useState(null);
   const [price, setPrice] = useState(150);
+  const [category, setCategory] = useState('all');
 
-  const [open, setOpen] = useState(false);
+  const categories = ['all', 'LEGO', 'Puzzles', 'Videogames'];
 
-  const handleTooltipClose = () => {
-    setOpen(false);
-  };
-
-  const handleTooltipOpen = () => {
-    setOpen(true);
-  };
 
   useEffect(() => {
     document.title = t("applicationName") + " - Wishlist";
@@ -39,10 +33,11 @@ const Wishlist = () => {
         .then((res) => res.json())
         .then((out) => setData(out.data))
         .catch(() => alert.showErrorAlert(t("errorRetrieve")))
-        .finally(() => setUpdate(!update));
+        .finally(() => setUpdate(val => !val));
     };
     fetchData();
     filter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -58,7 +53,7 @@ const Wishlist = () => {
     .then((data) => {
       setFilteredData(data);
     });*/
-    setFilteredData(data.filter((item) => item.price <= price));
+    setFilteredData(data.filter((item) => item.price <= price && (category === "all" || item.category === category)));
   };
 
   const columns = useMemo(() => {
@@ -99,6 +94,7 @@ const Wishlist = () => {
         ),
       },
     ];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredData]);
 
   const handleChange = (event, newValue) => {
@@ -120,6 +116,7 @@ const Wishlist = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              marginBottom: '10px'
             }}
           >
 
@@ -138,6 +135,30 @@ const Wishlist = () => {
               color="primary"
             />
           </Grid>
+
+          <Grid container spacing={0} style={{ gap: "3px" }}>
+            {categories.map((el, index) => {
+              return (
+                <Grid>
+                  <Chip
+                    key={index}
+                    style={{
+                      fontWeight: "bold",
+                    }}
+                    label={t(el)}
+                    color="primary"
+                    value={el}
+                    variant={el === category ? "contained" : "outlined"}
+                    onClick={() => {
+                      setCategory(el);
+                      setUpdate((val) => !val);
+                    }}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+
         </Grid>
 
         <Table

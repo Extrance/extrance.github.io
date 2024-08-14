@@ -11,6 +11,7 @@ import log from "loglevel";
 import "react-toastify/dist/ReactToastify.min.css";
 
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import { BULLET } from "../Router/paths";
 
 const ErrorPage = ({
   code,
@@ -120,7 +121,7 @@ const ErrorPage = ({
               color="primary"
               aria-label="gotohome-button"
               onClick={() => {
-                navigate("/WhoAmI");
+                navigate(BULLET.WHOAMI);
               }}
             >
               {t("goToHomeButton")}
