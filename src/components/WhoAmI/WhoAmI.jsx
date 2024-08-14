@@ -18,18 +18,12 @@ import { useAlert } from "../../store/AlertProvider";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styled from "@emotion/styled";
 
-import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-import SearchLogo from "../UI/Buttons/SearchLogo";
-import ClearLogo from "../UI/Buttons/ClearLogo";
 import { useNavigate } from "react-router-dom";
-import { removeDuplicates } from "../../util/utilFunction";
-import { Table } from "../common";
 import SpeedDial from "../common/custom/SpeedDial";
+import RubikIcon from "../UI/Icons/RubikIcon";
 
 const WhoAmI = () => {
   const { t } = useTranslation();
-  const windowSize = useWindowSize();
-  const alert = useAlert();
 
   /* useEffect(() => {
     const fetchData = () => {
@@ -77,7 +71,7 @@ const WhoAmI = () => {
         L'applicazione è attualmente WIP, vedrò di aggiornare il progetto mano a
         mano che troverò tecnologie che riterrò interessante integrare in questa
         webapp, ma soprattutto mano a mano che la mia creatività partorirà idee
-        per me divertenti e/o utii per chi frequenta questo sito.
+        per me divertenti e/o utili per chi frequenta questo sito.
       </div>
       <br />
       <div style={{ float: "right" }}>Enjoy!</div>

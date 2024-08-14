@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import LegoIcon from "./Icons/LegoIcon";
 
 const openedMixin = (theme) => ({
   width: theme.drawerMainMenuWidth,
@@ -103,7 +104,7 @@ const MainMenu = (props) => {
               }}
             >
               <ListItemIcon>
-                <ChecklistIcon color="primary" />
+                <LegoIcon color='primary'/>
               </ListItemIcon>
               <ListItemText primary={t("LEGO")} />
             </ListItemButton>
