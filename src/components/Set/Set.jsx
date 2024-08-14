@@ -19,7 +19,7 @@ const Set = () => {
   useEffect(() => {
     const fetchData = () => {
       fetch(
-        `https://raw.githubusercontent.com/Extrance/data/main/reviews/${pathname.split("/Collection/")[1]
+        `https://raw.githubusercontent.com/Extrance/data/main/data/${pathname.split("/Collection/")[1]
         }.json`
       )
         .then((res) => res.json())
