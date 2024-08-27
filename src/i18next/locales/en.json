@@ -1690,5 +1690,12 @@
   "price": "Price",
   "menu": "Menu",
   "Puzzles": "Puzzles",
-  "Videogames": "Videogames"
+  "Videogames": "Videogames",
+  "wai_introduction": "Hi everyone! I'm Andrea Balasso and you just stumbled upon one little project of mine that I've been developing on my spare time.",
+  "wai_idea": "The initial idea behind this web application was to provide to my friends an updated list of what I own (but most importantly what I do NOT own), and make their life easier anytime my birthday draws near!",
+  "wai_motivations": "Whilst I was at it, I chose to also use this app as a playground to experiment with different technologies, offering always new sections and option, to anyone that visits this website.",
+  "wai_disclaimer": "The website is currently WIP, I'll try to release updates anytime I find new technologies that I deem interesting, but most importantly anytime my creative mind comes up with fun and/or useful ideas.",
+  "wai_cv_studies": "Studies",
+  "wai_cv_work": "Working positions",
+  "noEntryFound": "No entry found"
 }

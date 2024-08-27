@@ -1691,5 +1691,12 @@
   "price": "Prezzo",
   "menu": "Menu",
   "Puzzles": "Rompicapi",
-  "Videogames": "Videogiochi"
+  "Videogames": "Videogiochi",
+  "wai_introduction": "Ciao a tutti, sono Andrea Balasso e questo è un mio progettino che porto avanti a tempo perso.",
+  "wai_idea": "Questa webapp nasce per offrire ai miei amici una lista aggiornata e facilmente consultabile di quello che ho (e specialmente di quello che mi manca) per facilitare la scelta all'avvicinarsi del mio compleanno :)",
+  "wai_motivations": "Già che c'ero, però, ho deciso di sfruttare l'occasione per implementare mano a mano sempre più funzioni, con l'obiettivo primario di far pratica con diverse tecnologie, e andare ad offrire sempre più sezioni diverse e opzioni, ad amici e non.",
+  "wai_disclaimer": "L'applicazione è attualmente WIP, vedrò di aggiornare il progetto mano a mano che troverò tecnologie che riterrò interessante integrare in questa webapp, ma soprattutto mano a mano che la mia creatività partorirà idee per me divertenti e/o utili per chi frequenta questo sito.",
+  "wai_cv_studies": "Studi",
+  "wai_cv_work": "Posizioni lavorative",
+  "noEntryFound": "Nessuna entry trovata"
 }

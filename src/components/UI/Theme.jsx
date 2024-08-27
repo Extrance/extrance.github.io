@@ -193,24 +193,26 @@ const themeDefault = (mode) => {
                 ? {
                     backgroundColor:
                       themePalette.palette[ownerState.color]?.light,
-                    borderColor: themePalette.palette[ownerState.color]?.light,
+                    border: 'none',
+                    /*borderColor: themePalette.palette[ownerState.color]?.light,*/
                   }
                 : {
                     backgroundColor:
                       themePalette.palette[ownerState.color]?.main,
-                    borderColor: themePalette.palette[ownerState.color]?.light,
+                    border: 'none',
+                    /* borderColor: themePalette.palette[ownerState.color]?.light, */
                   })),
             ...(ownerState.variant === "outlined" &&
               (themePalette.palette.mode === "dark"
                 ? {
                     color: themePalette.palette[ownerState.color]?.light,
-
-                    borderColor: themePalette.palette[ownerState.color]?.light,
+                    border: 'none',
+                    /* borderColor: themePalette.palette[ownerState.color]?.light, */
                   }
                 : {
                     color: themePalette.palette[ownerState.color]?.main,
-
-                    borderColor: themePalette.palette[ownerState.color]?.light,
+                    border: 'none',
+                    /* borderColor: themePalette.palette[ownerState.color]?.light, */
                   })),
           }),
         },
@@ -223,6 +225,18 @@ const themeDefault = (mode) => {
               : { color: themePalette.palette[ownerState.color]?.main }),
           }),
         },
+      },
+      MuiTextField: {
+        variants: [
+          {
+            props: { variant: "standard" },
+            style: {
+              "& .MuiInputBase-root.MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before": {
+                borderBottom: "1px solid",
+              },
+            },
+          },
+        ],
       },
       MuiTableContainer: {
         styleOverrides: {

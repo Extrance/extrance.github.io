@@ -169,7 +169,7 @@ const Wishlist = () => {
           hiddenColumns={{ id: windowSize.width > 600 }}
           isPaginated={true}
           size="small"
-          warning="noSetFound"
+          warning="noEntryFound"
           rowsperpageslist={[10, 50, 100]}
         />
       </BoxStyle>
