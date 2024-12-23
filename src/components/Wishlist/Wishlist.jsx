@@ -21,7 +21,7 @@ const Wishlist = () => {
   const [price, setPrice] = useState(150);
   const [category, setCategory] = useState('all');
 
-  const categories = ['all', 'LEGO', 'Puzzles', 'Videogames'];
+  const categories = ['all', 'LEGO', 'Puzzles', 'Videogames', 'Comics'];
 
 
   useEffect(() => {
@@ -129,9 +129,9 @@ const Wishlist = () => {
               value={price}
               onChangeCommitted={() => setUpdate((val) => !val)}
               valueLabelDisplay="auto"
-              max={200}
+              max={450}
               onChange={handleChange}
-              min={0}
+              min={25}
               color="primary"
             />
           </Grid>

@@ -17,7 +17,7 @@ export const arcDarkBlue = "#0A2744";
 export const arcGreyDark = "#424242";
 export const arcScarlet = "#500000";
 
-export const arcReply = "#e73e27";
+export const arcExtr = "#e73e27";
 
 const getThemePaletteExtrance = (mode) => {
   return createTheme({
@@ -30,9 +30,9 @@ const getThemePaletteExtrance = (mode) => {
         main: arcWhite,
       },
       headerChip: {
-        main: arcReply,
-        dark: arcReply,
-        light: arcReply,
+        main: arcExtr,
+        dark: arcExtr,
+        light: arcExtr,
       },
       footer: {
         main: arcGreyLight,
@@ -42,6 +42,7 @@ const getThemePaletteExtrance = (mode) => {
       },
       table: {
         main: arcWhite,
+        light: '#ffffff',
       },
       componentHeaderText: {
         main: arcGreyLight,
@@ -65,13 +66,20 @@ const getThemePaletteExtrance = (mode) => {
       error: {
         main: arcRed,
       },
+      default: {
+        main: arcGrey,
+      },
       down: {
         main: arcRed,
+      },
+      plain: {
+        main: 'transparent',
       },
       warning: {
         main: arcOrange,
         contrastText: arcWhite,
       },
+      tonalOffset: 0.2,
     },
   });
 };
@@ -193,25 +201,25 @@ const themeDefault = (mode) => {
                 ? {
                     backgroundColor:
                       themePalette.palette[ownerState.color]?.light,
-                    border: 'none',
+                    border: "none",
                     /*borderColor: themePalette.palette[ownerState.color]?.light,*/
                   }
                 : {
                     backgroundColor:
                       themePalette.palette[ownerState.color]?.main,
-                    border: 'none',
+                    border: "none",
                     /* borderColor: themePalette.palette[ownerState.color]?.light, */
                   })),
             ...(ownerState.variant === "outlined" &&
               (themePalette.palette.mode === "dark"
                 ? {
                     color: themePalette.palette[ownerState.color]?.light,
-                    border: 'none',
+                    border: "none",
                     /* borderColor: themePalette.palette[ownerState.color]?.light, */
                   }
                 : {
                     color: themePalette.palette[ownerState.color]?.main,
-                    border: 'none',
+                    border: "none",
                     /* borderColor: themePalette.palette[ownerState.color]?.light, */
                   })),
           }),
@@ -220,9 +228,10 @@ const themeDefault = (mode) => {
       MuiIconButton: {
         styleOverrides: {
           root: ({ ownerState }) => ({
-            ...(themePalette.palette.mode === "dark"
-              ? { color: themePalette.palette[ownerState.color]?.light }
-              : { color: themePalette.palette[ownerState.color]?.main }),
+            color:
+              themePalette.palette.mode === "dark"
+                ? themePalette.palette[ownerState.color]?.light ?? "inherit"
+                : themePalette.palette[ownerState.color]?.main ?? "inherit",
           }),
         },
       },
@@ -231,9 +240,10 @@ const themeDefault = (mode) => {
           {
             props: { variant: "standard" },
             style: {
-              "& .MuiInputBase-root.MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before": {
-                borderBottom: "1px solid",
-              },
+              "& .MuiInputBase-root.MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before":
+                {
+                  borderBottom: "1px solid",
+                },
             },
           },
         ],
@@ -382,9 +392,10 @@ const themeDefault = (mode) => {
       MuiSvgIcon: {
         styleOverrides: {
           root: ({ ownerState }) => ({
-            ...(themePalette.palette.mode === "dark"
-              ? { color: themePalette.palette[ownerState.color]?.light }
-              : { color: themePalette.palette[ownerState.color]?.main }),
+            color:
+              themePalette.palette.mode === "dark"
+                ? themePalette.palette[ownerState.color]?.light ?? "inherit"
+                : themePalette.palette[ownerState.color]?.main ?? "inherit",
           }),
         },
         variants: [

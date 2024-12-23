@@ -1,19 +1,17 @@
 import {
   Card,
   CardContent,
-  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableFooter,
   TableHead,
   TablePagination,
   TableRow,
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import TableToolbar from "./TableToolbar";
@@ -31,6 +29,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { useTranslation } from "react-i18next";
 import { isEmpty } from "../../../util/utilFunction";
 import styled from "styled-components";
+import Loading from "./Loading";
 
 /**
  * AvengerTable Table Component
@@ -47,12 +46,14 @@ const AvengerTable = ({
   rowsperpageslist,
   isPaginated,
   hiddenColumns,
-  size,
+  size = "small",
   componentAction,
   isToolbarVisible,
   hideHeader,
   hideWarning,
   warning,
+  loading = false,
+  index = 0,
   getRowStyles,
 }) => {
   const { t } = useTranslation();
@@ -83,6 +84,7 @@ const AvengerTable = ({
   });
 
   const { pageSize, pageIndex } = table.getState().pagination;
+  const height = useRef(80);
 
   useEffect(() => {
     if (
@@ -92,7 +94,12 @@ const AvengerTable = ({
     } else {
       setLastPage(false);
     }
+    height.current = document.getElementById("tableRef-" + index)?.offsetHeight ?? 80;
   }, [data, table.getExpandedRowModel().rows.length]);
+
+  useEffect(() => {
+    height.current = document.getElementById("tableRef-" + index)?.offsetHeight ?? 80;
+  }, [pageIndex]);
 
   const handleChangePage = (event, newPage) => {
     table.setPageIndex(newPage);
@@ -111,11 +118,13 @@ const AvengerTable = ({
 
   // Render the UI for your table
   return (
-    <TableContainer sx={{ flex: "1 1 100%", overflowX:'scroll' }}>
+    <TableContainer sx={{ flex: "1 1 100%", overflowX: "scroll" }}>
       {isToolbarVisible && (
         <TableToolbar title={title} componentAction={componentAction} />
       )}
-      {table.getRowModel().rows.length > 0 && (
+      {loading ? (
+        <Loading height={data.length > 0 ? height.current : 80} />
+      ) : table.getRowModel().rows.length > 0 ? (
         <TableContainer elevation={3}>
           <Table size={size}>
             {!hideHeader && (
@@ -197,37 +206,38 @@ const AvengerTable = ({
             </TableBody>
           </Table>
           {isPaginated && (
-                <TablePagination
-                  rowsPerPageOptions={[]}
-                  count={table.getExpandedRowModel().rows.length}
-                  rowsPerPage={pageSize}
-                  page={pageIndex}
-                  component="div"
-                  style={{ display: "flex", overflow: "auto" }}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                />
+            <TablePagination
+              rowsPerPageOptions={[]}
+              count={table.getExpandedRowModel().rows.length}
+              rowsPerPage={pageSize}
+              page={pageIndex}
+              component="div"
+              style={{ display: "flex", overflow: "auto" }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
           )}
         </TableContainer>
-      )}
-      {table.getRowModel().rows.length === 0 && !hideWarning && (
-        <Card variant="outlined">
-          <CardContent>
-            <Typography
-              variant="h5"
-              component="div"
-              display="flex"
-              alignItems="center"
-            >
-              <InfoIcon style={{ marginRight: 5 }} />
-              <>{t("attention")}</>
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {t(warning)}
-            </Typography>
-          </CardContent>
-        </Card>
+      ) : (
+        !hideWarning && (
+          <Card variant="outlined">
+            <CardContent>
+              <Typography
+                variant="h5"
+                component="div"
+                display="flex"
+                alignItems="center"
+              >
+                <InfoIcon style={{ marginRight: 5 }} />
+                <>{t("attention")}</>
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                {t(warning)}
+              </Typography>
+            </CardContent>
+          </Card>
+        )
       )}
     </TableContainer>
   );

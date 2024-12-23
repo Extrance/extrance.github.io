@@ -1,16 +1,19 @@
 import { IconButton, Tooltip } from "@mui/material";
-import ClearIcon from '@mui/icons-material/Clear';
+import BackspaceIcon from "@mui/icons-material/Backspace";
 
-const ClearLogo = ({tooltipLabel, props, placement}) => {
+const ClearLogo = ({ tooltipLabel, props, placement }) => {
   return (
-    <Tooltip title={tooltipLabel} placement={placement}>
+    <Tooltip title={tooltipLabel} placement={placement ?? "bottom"}>
       <span>
         <IconButton
           {...props}
           aria-label="clear-button"
-          color="primary"
+          color="default"
+          type={props?.type ?? "cancel"}
+          size={props?.size ?? "small"}
+          component={props?.disabled ? "div" : undefined}
         >
-          <ClearIcon size={props.size} />
+          <BackspaceIcon size={props?.size ?? "small"} />
         </IconButton>
       </span>
     </Tooltip>
