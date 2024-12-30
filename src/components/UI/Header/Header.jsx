@@ -223,7 +223,7 @@ const Header = ({
           </ListItemIcon>
           <ListItemText primary={t("LEGO")} />
         </MenuItem>
-        <MenuItem
+        {/* <MenuItem
           selected={location?.pathname.startsWith(BULLET.PUZZLES)}
           onClick={() => {
             handleClose();
@@ -234,7 +234,7 @@ const Header = ({
             <RubikIcon color="inherit" />
           </ListItemIcon>
           <ListItemText primary={t("Puzzles")} />
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           selected={location?.pathname.startsWith(BULLET.WISHLIST)}
           onClick={() => {

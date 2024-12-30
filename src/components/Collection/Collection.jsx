@@ -6,15 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { removeDuplicates } from "../../util/utilFunction";
 import { Table } from "../common";
 import { useForm, Controller } from "react-hook-form";
+import { useRecoilState } from "recoil";
+import { atomCollection } from "../../atoms/atomsCollection";
+import { t } from "i18next";
 
 import styled from "@emotion/styled";
 
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import SearchLogo from "../UI/Buttons/SearchLogo";
 import ClearLogo from "../UI/Buttons/ClearLogo";
-import { useRecoilState } from "recoil";
-import { atomCollection } from "../../atoms/atomsCollection";
-import { t } from "i18next";
 
 const Collection = () => {
   const windowSize = useWindowSize();

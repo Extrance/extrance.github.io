@@ -45,10 +45,10 @@ export const router = createHashRouter([
           },
         ],
       },
-      {
+      /* {
         path: BULLET.PUZZLES,
         element: <Puzzles />,
-      },
+      }, */
       {
         path: BULLET.WISHLIST,
         element: <Wishlist />,

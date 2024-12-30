@@ -110,7 +110,7 @@ const MainMenu = (props) => {
 
           <Divider/>
 
-          <Tooltip
+          {/* <Tooltip
             title={!props.openDrawer ? t("Puzzles") : ""}
             placement="right"
           >
@@ -128,7 +128,7 @@ const MainMenu = (props) => {
             </ListItemButton>
           </Tooltip>
 
-          <Divider />
+          <Divider /> */}
 
           <Tooltip
             title={!props.openDrawer ? t("Wishlist") : ""}

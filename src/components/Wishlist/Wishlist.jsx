@@ -10,6 +10,8 @@ import styled from "@emotion/styled";
 import LinkLogo from "../UI/Buttons/LinkLogo";
 import SavingsIcon from "@mui/icons-material/Savings";
 
+const categories = ["all", "LEGO", "Puzzles", "Videogames", "Comics"];
+
 const Wishlist = () => {
   const { t } = useTranslation();
   const alert = useAlert();
@@ -19,10 +21,8 @@ const Wishlist = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [update, setUpdate] = useState(null);
   const [price, setPrice] = useState(150);
-  const [category, setCategory] = useState('all');
-
-  const categories = ['all', 'LEGO', 'Puzzles', 'Videogames', 'Comics'];
-
+  const [category, setCategory] = useState("all");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     document.title = t("applicationName") + " - Wishlist";
@@ -33,10 +33,9 @@ const Wishlist = () => {
         .then((res) => res.json())
         .then((out) => setData(out.data))
         .catch(() => alert.showErrorAlert(t("errorRetrieve")))
-        .finally(() => setUpdate(val => !val));
+        .finally(() => setUpdate((val) => !val));
     };
     fetchData();
-    filter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -46,14 +45,14 @@ const Wishlist = () => {
   }, [update]);
 
   const filter = () => {
-    /*fetch(`https://eu-central-1.aws.data.mongodb-api.com/app/application-0-tvewibr/endpoint/entrypoint`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      setFilteredData(data);
-    });*/
-    setFilteredData(data.filter((item) => item.price <= price && (category === "all" || item.category === category)));
+    setFilteredData(
+      data.filter(
+        (item) =>
+          item.price <= price &&
+          (category === "all" || item.category === category)
+      )
+    );
+    if (loading) setLoading(false);
   };
 
   const columns = useMemo(() => {
@@ -116,11 +115,16 @@ const Wishlist = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginBottom: '10px'
+              marginBottom: "10px",
             }}
           >
-
-            <Tooltip disableFocusListener title={t("price")} enterTouchDelay={0} placement="right" style={{ marginRight: 20 }}>
+            <Tooltip
+              disableFocusListener
+              title={t("price")}
+              enterTouchDelay={0}
+              placement="right"
+              style={{ marginRight: 20 }}
+            >
               <SavingsIcon />
             </Tooltip>
 
@@ -158,7 +162,6 @@ const Wishlist = () => {
               );
             })}
           </Grid>
-
         </Grid>
 
         <Table
@@ -168,8 +171,8 @@ const Wishlist = () => {
           data={filteredData}
           hiddenColumns={{ id: windowSize.width > 600 }}
           isPaginated={true}
-          size="small"
           warning="noEntryFound"
+          loading={loading}
           rowsperpageslist={[10, 50, 100]}
         />
       </BoxStyle>
@@ -180,6 +183,5 @@ const Wishlist = () => {
 export default Wishlist;
 
 const BoxStyle = styled(Box)(() => ({
-  paddingLeft: "25px",
-  paddingRight: "25px",
+  padding: "0px 25px",
 }));
