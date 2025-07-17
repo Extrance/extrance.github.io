@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SpeedDial from "../common/custom/SpeedDial";
 import styled from "@emotion/styled";
+import TechShowcase from "../UI/TechShowcase";
 
 const WhoAmI = () => {
   const { t } = useTranslation();
@@ -33,6 +34,7 @@ const WhoAmI = () => {
       <br />
       <div style={{ float: "right" }}>Enjoy!</div>
       <br />
+      <TechShowcase />
       <div>
         <Accordion
           disableGutters

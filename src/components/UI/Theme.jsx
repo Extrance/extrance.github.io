@@ -16,6 +16,7 @@ export const arcBlue = "#2196F3";
 export const arcDarkBlue = "#0A2744";
 export const arcGreyDark = "#424242";
 export const arcScarlet = "#500000";
+export const arcBlack = "#262626";
 
 export const arcExtr = "#e73e27";
 
