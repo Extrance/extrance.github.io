@@ -146,11 +146,11 @@ const Wishlist = () => {
                 <Grid>
                   <Chip
                     key={index}
-                    style={{
+                    style={el === category ? {
                       fontWeight: "bold",
-                    }}
-                    label={t(el)}
+                    } : {}}
                     color="primary"
+                    label={t(el)}
                     value={el}
                     variant={el === category ? "contained" : "outlined"}
                     onClick={() => {

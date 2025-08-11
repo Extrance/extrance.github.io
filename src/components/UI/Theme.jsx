@@ -18,7 +18,8 @@ export const arcGreyDark = "#424242";
 export const arcScarlet = "#500000";
 export const arcBlack = "#262626";
 
-export const arcExtr = "#e73e27";
+//export const arcExtr = "#e73e27";
+export const arcExtr = "#0A2744";
 
 const getThemePaletteExtrance = (mode) => {
   return createTheme({
@@ -29,11 +30,6 @@ const getThemePaletteExtrance = (mode) => {
       },
       header: {
         main: arcWhite,
-      },
-      headerChip: {
-        main: arcExtr,
-        dark: arcExtr,
-        light: arcExtr,
       },
       footer: {
         main: arcGreyLight,
@@ -55,8 +51,11 @@ const getThemePaletteExtrance = (mode) => {
         main: arcWhite,
       },
       primary: {
-        main: arcOrange,
-        contrastText: arcWhite,
+        main: arcGreyDark,
+        dark: arcGreyDark,
+        light: arcGreyLight,
+        contrastTextLight: arcWhite,
+        contrastText: arcGreyDark,
       },
       secondary: {
         main: arcBlue,
@@ -200,28 +199,38 @@ const themeDefault = (mode) => {
             ...(ownerState.variant === "contained" &&
               (themePalette.palette.mode === "dark"
                 ? {
-                    backgroundColor:
-                      themePalette.palette[ownerState.color]?.light,
+                    backgroundColor: themePalette.palette[ownerState.color]?.light,
+                    color: themePalette.palette[ownerState.color]?.contrastText,
                     border: "none",
-                    /*borderColor: themePalette.palette[ownerState.color]?.light,*/
+                    '&:hover': {
+                      backgroundColor: themePalette.palette[ownerState.color]?.light,
+                      color: themePalette.palette[ownerState.color]?.contrastText,
+                      opacity: 0.7
+                    }
                   }
                 : {
-                    backgroundColor:
-                      themePalette.palette[ownerState.color]?.main,
+                    backgroundColor: themePalette.palette[ownerState.color]?.main,
+                    color: themePalette.palette[ownerState.color]?.contrastTextLight,
                     border: "none",
-                    /* borderColor: themePalette.palette[ownerState.color]?.light, */
+                    '&:hover': {
+                      opacity: 0.7
+                    }
                   })),
             ...(ownerState.variant === "outlined" &&
               (themePalette.palette.mode === "dark"
                 ? {
                     color: themePalette.palette[ownerState.color]?.light,
                     border: "none",
-                    /* borderColor: themePalette.palette[ownerState.color]?.light, */
+                    '&:hover': {
+                      opacity: 0.7
+                    }
                   }
                 : {
-                    color: themePalette.palette[ownerState.color]?.main,
+                    color: themePalette.palette[ownerState.color]?.dark,
                     border: "none",
-                    /* borderColor: themePalette.palette[ownerState.color]?.light, */
+                    '&:hover': {
+                      opacity: 0.7
+                    }
                   })),
           }),
         },
@@ -232,7 +241,7 @@ const themeDefault = (mode) => {
             color:
               themePalette.palette.mode === "dark"
                 ? themePalette.palette[ownerState.color]?.light ?? "inherit"
-                : themePalette.palette[ownerState.color]?.main ?? "inherit",
+                : themePalette.palette[ownerState.color]?.dark ?? "inherit",
           }),
         },
       },
@@ -407,6 +416,51 @@ const themeDefault = (mode) => {
             },
           },
         ],
+      },
+      MuiSlider: {
+        styleOverrides: {
+          root: {
+            color: themePalette.palette.primary.main,
+          },
+          thumb: {
+            backgroundColor: themePalette.palette.mode === "dark" ? themePalette.palette.primary.light : themePalette.palette.primary.main,
+            border: '2px solid ' + themePalette.palette.primary.main,
+          },
+          track: {
+            backgroundColor: themePalette.palette.mode === "dark" ? themePalette.palette.primary.light : themePalette.palette.primary.main,
+          },
+          rail: {
+            backgroundColor: themePalette.palette.mode === "dark" ? themePalette.palette.primary.light : themePalette.palette.primary.main,
+          },
+          mark: {
+            backgroundColor: themePalette.palette.mode === "dark" ? themePalette.palette.primary.light : themePalette.palette.primary.main,
+          },
+          valueLabel: {
+            backgroundColor: themePalette.palette.mode === "dark" ? themePalette.palette.primary.light : themePalette.palette.primary.main,
+            color: themePalette.palette.mode === "dark" ? themePalette.palette.primary.contrastText : themePalette.palette.primary.contrastTextLight,
+          },
+        },
+      },
+      MuiSpeedDial: {
+        styleOverrides: {
+          fab: ({ ownerState }) => {
+            const baseColor = themePalette.palette.mode === "dark"
+              ? themePalette.palette[ownerState.color]?.light || themePalette.palette.primary.light
+              : themePalette.palette[ownerState.color]?.main || themePalette.palette.primary.main;
+            const hoverColor = themePalette.palette.mode === "dark"
+              ? themePalette.palette[ownerState.color]?.light || themePalette.palette.primary.light
+              : themePalette.palette[ownerState.color]?.dark || themePalette.palette.primary.dark;
+            return {
+              backgroundColor: baseColor,
+              color: themePalette.palette.mode === "dark"
+                ? themePalette.palette[ownerState.color]?.contrastText || themePalette.palette.primary.contrastTextLight
+                : themePalette.palette[ownerState.color]?.contrastTextLight || themePalette.palette.primary.contrastText,
+              '&:hover': {
+                backgroundColor: hoverColor,
+              },
+            };
+          },
+        },
       },
       MuiTooltip: {
         defaultProps: {

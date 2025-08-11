@@ -5,6 +5,7 @@ import NextImg from '../../imgs/nextjs-logo.png';
 import AngularImg from '../../imgs/angular-logo.png';
 import NodeJsImg from '../../imgs/nodejs-logo.png';
 import JavaImg from '../../imgs/java-logo.png';
+import PythonImg from '../../imgs/python-logo.png';
 
 const technologies = [
   { name: "React", logo: ReactImg },
@@ -12,11 +13,12 @@ const technologies = [
   { name: "Angular", logo: AngularImg },
   { name: "Node.js", logo: NodeJsImg },
   { name: "Java", logo: JavaImg },
+  { name: "Python", logo: PythonImg },
 ];
 
 export default function TechShowcase() {
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
+    <div style={{ padding: "2rem 2rem 0rem 2rem", textAlign: "center" }}>
       <Grid container spacing={3} justifyContent="center">
         {technologies.map((tech) => (
           <Grid item xs={6} sm={4} md={3} lg={2} key={tech.name}>

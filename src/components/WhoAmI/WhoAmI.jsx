@@ -5,6 +5,7 @@ import {
   Box,
   List,
   ListItem,
+  Paper,
   Typography,
 } from "@mui/material";
 import { useEffect } from "react";
@@ -14,6 +15,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SpeedDial from "../common/custom/SpeedDial";
 import styled from "@emotion/styled";
 import TechShowcase from "../UI/TechShowcase";
+import SoftSkills from "../UI/SoftSkills";
 
 const WhoAmI = () => {
   const { t } = useTranslation();
@@ -25,7 +27,8 @@ const WhoAmI = () => {
 
   return (
     <BoxStyle>
-      <div>{t("wai_introduction")}</div>
+      <Paper elevation={3} sx={{ p: 3, mt: 4, borderRadius: 3 }}>
+          <div>{t("wai_introduction")}</div>
       <br />
       <div>{t("wai_idea")}</div>
       <div>{t("wai_motivations")}</div>
@@ -34,7 +37,11 @@ const WhoAmI = () => {
       <br />
       <div style={{ float: "right" }}>Enjoy!</div>
       <br />
+        </Paper>
+      
+  
       <TechShowcase />
+      <SoftSkills/>
       <div>
         <Accordion
           disableGutters
