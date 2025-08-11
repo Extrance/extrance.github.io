@@ -1,19 +1,20 @@
 {
   "files": {
     "main.css": "/static/css/main.14447a75.css",
-    "main.js": "/static/js/main.5f3e860f.js",
+    "main.js": "/static/js/main.c87bbfdd.js",
     "static/media/react-logo.png": "/static/media/react-logo.9af1b830313f2f5a98c3.png",
     "static/media/java-logo.png": "/static/media/java-logo.c9550000a0c20792ae9b.png",
+    "static/media/python-logo.png": "/static/media/python-logo.8b0119d243dfbf14f998.png",
     "static/media/nextjs-logo.png": "/static/media/nextjs-logo.3daee19590ce2095e811.png",
     "static/media/nodejs-logo.png": "/static/media/nodejs-logo.cf32566f58fb9b916a84.png",
     "static/media/angular-logo.png": "/static/media/angular-logo.b5239a9a3bff01a347fa.png",
     "index.html": "/index.html",
     "static/media/getFetch.cjs": "/static/media/getFetch.40f37ddea2378391108f.cjs",
     "main.14447a75.css.map": "/static/css/main.14447a75.css.map",
-    "main.5f3e860f.js.map": "/static/js/main.5f3e860f.js.map"
+    "main.c87bbfdd.js.map": "/static/js/main.c87bbfdd.js.map"
   },
   "entrypoints": [
     "static/css/main.14447a75.css",
-    "static/js/main.5f3e860f.js"
+    "static/js/main.c87bbfdd.js"
   ]
 }
