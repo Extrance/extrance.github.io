@@ -10,11 +10,11 @@ import {
   Switch,
 } from "@mui/material";
 import { useTheme } from "@emotion/react";
-import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../../store/ResizeProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BULLET } from "../../Router/paths";
+import { useContext, useEffect, useState } from "react";
 
 import styled from "@emotion/styled";
 import ListItemText from "@mui/material/ListItemText";
@@ -160,14 +160,22 @@ const Header = ({
           {path.length > 0 ? (
             <Tooltip title={t("backButton")} placement="bottom-start">
               <IconButton
-                style={{ backgroundColor: "transparent" }}
+              color="primary"
+                //style={{ backgroundColor: "transparent" }}
                 onClick={() => navigate(-1)}
               >
                 <ArrowBackIosNewIcon />
               </IconButton>
             </Tooltip>
           ) : (
-            <img src={theme.palette.mode === "dark" ? Extrance_D : Extrance_L} style={{ width: 40 }} alt="Logo" />
+            <GradientLogoButton
+              aria-label="Home"
+              tabIndex={0}
+              onClick={() => navigate("/")}
+            >
+              <img src={theme.palette.mode === "dark" ? Extrance_D : Extrance_L} style={{ width: 40 }} alt="Logo" />
+            </GradientLogoButton>
+
           )}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
@@ -183,6 +191,9 @@ const Header = ({
           >
             <MaterialUISwitch
               checked={theme.palette.mode === "dark"}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") { themeColorMode.colorMode.toggleColorMode() }
+              }}
               onChange={themeColorMode.colorMode.toggleColorMode}
             />
           </Tooltip>
@@ -207,7 +218,7 @@ const Header = ({
           }}
         >
           <ListItemIcon>
-            <PersonSearchIcon color="inherit" />
+            <PersonSearchIcon color="primary" />
           </ListItemIcon>
           <ListItemText primary={t("WhoAmI")} />
         </MenuItem>
@@ -219,7 +230,7 @@ const Header = ({
           }}
         >
           <ListItemIcon>
-            <LegoIcon color="inherit" />
+            <LegoIcon color="primary" />
           </ListItemIcon>
           <ListItemText primary={t("LEGO")} />
         </MenuItem>
@@ -243,7 +254,7 @@ const Header = ({
           }}
         >
           <ListItemIcon>
-            <CardGiftcardIcon color="inherit" />
+            <CardGiftcardIcon color="primary" />
           </ListItemIcon>
           <ListItemText primary={t("Wishlist")} />
         </MenuItem>
@@ -261,4 +272,30 @@ export const DrawerHeader = styled("div")(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: "flex-end",
+}));
+
+
+const GradientLogoButton = styled(IconButton)(({ theme }) => ({
+  background: 'none',
+  border: 'none',
+  padding: 0,
+  margin: 0,
+  cursor: 'pointer',
+  outline: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  position: 'relative',
+  borderRadius: '50%',
+  transition: 'opacity 0.2s',
+  '&:hover, &:focus': {
+    opacity: 0.7,
+  },
+  '& img': {
+    position: 'relative',
+    zIndex: 1,
+  },
+  '&:hover::after, &:focus::after': {
+    background: 'linear-gradient(90deg, #b388ff 0%, #ff80ab 100%)',
+    opacity: 1,
+  },
 }));

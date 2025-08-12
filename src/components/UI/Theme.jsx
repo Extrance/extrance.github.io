@@ -135,6 +135,34 @@ const themeDefault = (mode) => {
           },
         },
       },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            '&:hover, &.Mui-selected:hover, &.Mui-focusVisible': {
+              backgroundColor: 'primary.main',
+              transition: 'background 0.2s',
+            },
+            '&.Mui-selected': {
+              backgroundColor: 'primary.main',
+              color: 'primary.contrastTextLight',
+            },
+          },
+        },
+      },
+      MuiListItemButton: {
+        styleOverrides: {
+          root: {
+            '&:hover,&.Mui-selected:hover, &.Mui-focusVisible': {
+              backgroundColor: 'primary.main',
+              transition: 'background 0.2s',
+            },
+            '&.Mui-selected': {
+              backgroundColor: 'primary.main',
+              color: 'primary.contrastTextLight',
+            },
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: ({ ownerState }) => ({
@@ -213,7 +241,7 @@ const themeDefault = (mode) => {
                   backgroundColor: themePalette.palette[ownerState.color]?.light,
                   color: themePalette.palette[ownerState.color]?.contrastText,
                   border: "none",
-                  '&:hover': {
+                  '&:hover, &:focus': {
                     backgroundColor: themePalette.palette[ownerState.color]?.light,
                     color: themePalette.palette[ownerState.color]?.contrastText,
                     opacity: 0.7
@@ -223,7 +251,7 @@ const themeDefault = (mode) => {
                   backgroundColor: themePalette.palette[ownerState.color]?.main,
                   color: themePalette.palette[ownerState.color]?.contrastTextLight,
                   border: "none",
-                  '&:hover': {
+                  '&:hover, &:focus': {
                     opacity: 0.7
                   }
                 })),
@@ -232,14 +260,14 @@ const themeDefault = (mode) => {
                 ? {
                   color: themePalette.palette[ownerState.color]?.light,
                   border: "none",
-                  '&:hover': {
+                  '&:hover, &:focus': {
                     opacity: 0.7
                   }
                 }
                 : {
                   color: themePalette.palette[ownerState.color]?.dark,
                   border: "none",
-                  '&:hover': {
+                  '&:hover, &:focus': {
                     opacity: 0.7
                   }
                 })),
@@ -264,6 +292,18 @@ const themeDefault = (mode) => {
               "& .MuiInputBase-root.MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before":
               {
                 borderBottom: "1px solid",
+              },
+              '& .MuiInputBase-root.MuiInput-root.Mui-focused:not(.Mui-disabled, .Mui-error):after': {
+                borderBottom: 0,
+                content: '""',
+                display: 'block',
+                height: '1px',
+                width: '100%',
+                position: 'absolute',
+                left: 0,
+                bottom: 0,
+                background: 'linear-gradient(90deg, #b388ff 0%, #ff80ab 100%)',
+                zIndex: 1,
               },
             },
           },

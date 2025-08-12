@@ -1,6 +1,6 @@
 {
   "name": "extrance",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "versionDate": "06/11/2023",
   "company": "Extrance",
   "homepage": "https://extrance.github.io",
@@ -55,7 +55,8 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.local react-app-rewired start",
-    "build": "env-cmd -f .env.local react-app-rewired build",
+    "generate-meta-tag": "node ./node_modules/react-cache-buster/dist/generate-meta-tag.js",
+    "build": "npm run generate-meta-tag && env-cmd -f .env.local react-app-rewired build",
     "prebuild": "npm run generate-build-meta",
     "generate-build-meta": "echo 'Build meta generated.'",
     "predeploy": "npm run build",

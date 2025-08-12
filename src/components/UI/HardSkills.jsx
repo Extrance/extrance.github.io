@@ -15,11 +15,11 @@ import SmartToyIcon from '@mui/icons-material/SmartToy';
 
 const hardSkills = [
   { name: 'Git & GitHub', icon: <GitHubIcon color="primary" /> },
-  { name: 'Bitbucket & Sourcetree', icon: <SourceIcon color="primary" /> },
+  { name: 'Bitbucket', icon: <SourceIcon color="primary" /> },
   { name: 'Linux & CLI', icon: <TerminalIcon color="primary" /> },
   { name: 'Databases', icon: <StorageIcon color="primary" /> },
   { name: 'Cloud Platforms', icon: <CloudIcon color="primary" /> },
-  { name: 'Programming Languages', icon: <CodeIcon color="primary" /> },
+  { name: 'Programming', icon: <CodeIcon color="primary" /> },
   { name: 'Debugging', icon: <BugReportIcon color="primary" /> },
   { name: 'Data Science', icon: <DataObjectIcon color="primary" /> },
   { name: 'VS Code & IDEs', icon: <ExtensionIcon color="primary" /> },

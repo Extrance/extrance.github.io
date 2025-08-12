@@ -3,7 +3,7 @@ import BackspaceIcon from "@mui/icons-material/Backspace";
 
 const ClearLogo = ({ tooltipLabel, props, placement }) => {
   return (
-    <Tooltip title={tooltipLabel} placement={placement ?? "bottom"}>
+    <Tooltip title={tooltipLabel} placement={placement ?? "top-start"}>
       <span>
         <IconButton
           {...props}

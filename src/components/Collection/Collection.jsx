@@ -1,4 +1,4 @@
-import { Box as MuiBox, Button, Chip, Stack, TextField, Card, CardContent, CardMedia, Typography, CircularProgress } from "@mui/material";
+import { Box as MuiBox, Button, Chip, Stack, TextField, Card, CardContent, CardMedia, Typography, CircularProgress, ButtonGroup } from "@mui/material";
 import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { useWindowSize } from "../../store/ResizeProvider";
@@ -16,8 +16,10 @@ import styled from "@emotion/styled";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import SearchLogo from "../UI/Buttons/SearchLogo";
 import ClearLogo from "../UI/Buttons/ClearLogo";
+import { useTheme } from "@emotion/react";
 
 const Collection = () => {
+  const theme = useTheme();
   const windowSize = useWindowSize();
   const alert = useAlert();
   const [data, setData] = useState([]);
@@ -29,7 +31,7 @@ const Collection = () => {
   const [visibleCards, setVisibleCards] = useState(10); // Number of cards to show initially
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  
+
   // Show scroll-to-top button after threshold
   useEffect(() => {
     const handleScrollBtn = () => {
@@ -54,8 +56,27 @@ const Collection = () => {
         }, 1200);
       }
     };
+
+    // Workaround for zoomed out or large screens: load more if page isn't scrollable
+    const checkPageFill = () => {
+      if (isLoadingMore) return;
+      if (document.body.offsetHeight <= window.innerHeight && filteredData.length > visibleCards) {
+        setIsLoadingMore(true);
+        setTimeout(() => {
+          setVisibleCards((prev) => prev + 10);
+          setIsLoadingMore(false);
+        }, 1200);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const resizeObserver = new window.ResizeObserver(checkPageFill);
+    resizeObserver.observe(document.body);
+    checkPageFill();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      resizeObserver.disconnect();
+    };
   }, [isLoadingMore, visibleCards, filteredData.length, viewMode]);
 
   const defaultValues = useMemo(() => {
@@ -86,11 +107,11 @@ const Collection = () => {
       .then((res) => res.json())
       .then((out) => {
         setData(out.data);
-        const counts = out.data.reduce((acc, {brand}) => {
+        const counts = out.data.reduce((acc, { brand }) => {
           acc[brand] = (acc[brand] || 0) + 1;
           return acc;
         }, {});
-        const newList = Object.keys(counts).sort((a, b) => counts[b] - counts[a]).slice(0,3);
+        const newList = Object.keys(counts).sort((a, b) => counts[b] - counts[a]).slice(0, 3);
         setBrands(['all', ...newList]);
         filter(out.data);
       })
@@ -153,24 +174,7 @@ const Collection = () => {
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {viewMode === 'table' && <Grid container spacing={1}>
-          {windowSize.width > 600 && (
-            <Grid>
-              <Controller
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    placeholder={t("setNumber")}
-                    variant="standard"
-                    style={{ width: 150 }}
-                    size="small"
-                  />
-                )}
-                name="num"
-                control={control}
-              />
-            </Grid>
-          )}
+        {windowSize.width > 600 && <Grid container spacing={1}>
           <Grid>
             <Controller
               render={({ field }) => (
@@ -179,6 +183,12 @@ const Collection = () => {
                   placeholder={t("name")}
                   variant="standard"
                   style={{ width: 150 }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      onSubmit();
+                    }
+                  }}
                   size="small"
                 />
               )}
@@ -198,43 +208,104 @@ const Collection = () => {
             </Stack>
           </Grid>
         </Grid>}
-        {windowSize.width > 600 && !loading && (
-          <Grid container spacing={0} style={{ gap: "3px", margin: '10px 0'}}>
-            {brands.map((el, index) => {
-              return (
-                <Chip
-                  key={index}
-                  style={el === getValues("brand") ? {
-                    fontWeight: "bold",
-                  } : {}}
+        {/* Sticky bottom container for chips and scroll-to-top button */}
+        
+        <MuiBox
+          sx={{
+            position: 'fixed',
+            left: 0,
+            bottom: 0,
+            width: '100%',
+            zIndex: 1200,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '0 32px 16px 32px',
+            pointerEvents: 'none',
+          }}
+        >
+          <Stack direction="row" spacing={1} sx={windowSize.width > 600 ? {width: '100%', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1, pointerEvents: 'auto', marginLeft: '50px' } :{width: '100%', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1, pointerEvents: 'auto'}}>
+
+            {!loading && <ButtonGroup sx={{ border: 'transparent', backdropFilter: 'blur(20px)', borderRadius: '10px' }} size={windowSize.width > 600 ? "large" : windowSize.width > 400 ? 'medium' : 'small'} aria-label="button group">
+              {brands.map((el, index) => (
+
+                <Button
                   label={t(el)}
-                  color="primary"
+                  key={index}
                   value={el}
-                  variant={el === getValues("brand") ? "contained" : "outlined"}
+
                   onClick={() => {
                     setValue("brand", el);
                     filter();
                   }}
-                />
-              );
-            })}
-          </Grid>
-        )}
+                  sx={{
+                    minHeight: '48px',
+                    border: 'none',
+                    borderRadius: '10px',
+                    background: el === getValues("brand") ? 'linear-gradient(90deg, #b388ff 0%, #ff80ab 100%)' : 'transparent',
+                    display: 'inline-block',
+                    '&:hover, &:focus': {
+                      opacity: 1,
+                      border: 'none',
+                      color: el === getValues("brand") ? 'primary.light' : theme.palette.mode === "dark" ? 'primary.light' : 'primary.main',
+                    },
+                    opacity: 0.8,
+                    fontWeight: el === getValues("brand") ? 'bold' : 'normal',
+                    color: el === getValues("brand") ? 'primary.light' : theme.palette.mode === "dark" ? 'primary.light' : 'primary.main',
+                    transition: 'box-shadow 0.2s, background 0.2s',
+
+                  }}
+                >{t(el)}</Button>
+              ))}
+            </ButtonGroup>}
+            
+            <MuiBox sx={{
+              opacity: showScrollTop ? 1 : 0,
+              transform: showScrollTop ? 'scale(1)' : 'scale(0.3)',
+              transition: showScrollTop
+                ? 'opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1)'
+                : 'opacity 0.6s cubic-bezier(.4,0,.2,1) 0.1s, transform 0.6s cubic-bezier(.4,0,.2,1) 0.1s',
+              //visibility: showScrollTop ? 'visible' : 'hidden',
+              backdropFilter: 'blur(20px)',
+              borderRadius: '50%',
+              pointerEvents: showScrollTop ? 'auto' : 'none',
+            }}> 
+              <Button
+              sx={{
+                background: 'linear-gradient(90deg, #b388ff 0%, #ff80ab 100%)',
+
+                
+                opacity: 0.8,
+                '&:hover': {
+                  background: 'linear-gradient(90deg, #b388ff 0%, #ff80ab 100%)',
+                  color: 'white',
+                  opacity: 1
+                },
+                borderRadius: '50%',
+                minWidth: 0,
+                width: 48,
+                height: 48,
+                fontSize: 24,
+                padding: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'opacity 0.2s',
+                zIndex: 1000,
+                color:"primary.light"
+              }}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              aria-label="Scroll to top"
+            >
+              <KeyboardArrowUpRoundedIcon fontSize="large"/>
+            </Button>
+              </MuiBox>
+            
+          
+          </Stack>
+          
+        </MuiBox>
       </form>
-      {/* <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
-        <Button
-          variant={viewMode === "table" ? "contained" : "outlined"}
-          onClick={() => setViewMode("table")}
-        >
-          {t("Table View")}
-        </Button>
-        <Button
-          variant={viewMode === "cards" ? "contained" : "outlined"}
-          onClick={() => setViewMode("cards")}
-        >
-          {t("Card View")}
-        </Button>
-      </Stack> */}
       {viewMode === "table" && (
         <Table
           columns={columns}
@@ -250,6 +321,9 @@ const Collection = () => {
           {filteredData.slice(0, visibleCards).map((set) => (
             <Grid key={set.id} xs={12} sm={6} md={4} lg={3}>
               <Card
+                tabIndex={0}
+                role="button"
+                aria-label={set.name}
                 sx={{
                   position: 'relative',
                   height: 220,
@@ -257,10 +331,16 @@ const Collection = () => {
                   alignItems: 'flex-end',
                   overflow: 'hidden',
                   transition: 'transform 0.2s, box-shadow 0.2s',
-                  '&:hover': {
+                  outline: 'none',
+                  '&:hover, &:focus': {
                     transform: 'scale(1.03)',
                     boxShadow: 6,
                   },
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    navigate(`${set.id}`);
+                  }
                 }}
               >
                 <MuiBox
@@ -320,7 +400,7 @@ const Collection = () => {
                   </Typography>
                   {set.subBrand && (
                     <Typography variant="body2" sx={{ color: 'white' }}>
-                      {' '+set.subBrand}
+                      {' ' + set.subBrand}
                     </Typography>
                   )}
                 </CardContent>
@@ -335,8 +415,7 @@ const Collection = () => {
 
         </Grid>
       )}
-    {showScrollTop && <ScrollToTopBtn />}
-  </Box>
+    </Box>
   );
 }
 
@@ -371,46 +450,6 @@ function BouncingDots() {
           40% { transform: translateY(-12px); }
         }
       `}</style>
-    </MuiBox>
-  );
-}
-
-// Scroll to top button
-function ScrollToTopBtn() {
-  return (
-    <MuiBox
-      sx={{
-        position: 'fixed',
-        bottom: 32,
-        right: 32,
-        zIndex: 1000,
-      }}
-    >
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{
-          borderRadius: '50%',
-          minWidth: 0,
-          width: 48,
-          height: 48,
-          boxShadow: 4,
-          fontSize: 24,
-          padding: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          opacity: 0.5,
-          transition: 'opacity 0.2s',
-          '&:hover': {
-            opacity: 1,
-          },
-        }}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Scroll to top"
-      >
-        <KeyboardArrowUpRoundedIcon fontSize="large" />
-      </Button>
     </MuiBox>
   );
 }
