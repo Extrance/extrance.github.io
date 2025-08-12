@@ -1,6 +1,6 @@
 {
-  "name": "Extrance",
-  "version": "0.1.0",
+  "name": "extrance",
+  "version": "0.1.1",
   "versionDate": "06/11/2023",
   "company": "Extrance",
   "homepage": "https://extrance.github.io",
@@ -57,7 +57,7 @@
     "start": "env-cmd -f .env.local react-app-rewired start",
     "build": "env-cmd -f .env.local react-app-rewired build",
     "prebuild": "npm run generate-build-meta",
-    "generate-build-meta": "./node_modules/react-clear-cache/bin/cli.js",
+    "generate-build-meta": "echo 'Build meta generated.'",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },

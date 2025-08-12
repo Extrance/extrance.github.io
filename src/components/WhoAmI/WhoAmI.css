@@ -1,0 +1,12 @@
+.whoami-gradient-date, .whoami-gradient-text {
+    background: linear-gradient(90deg, #b388ff 0%, #ff80ab 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    transition: 'background' 0.4s, color 0.4s;
+}
+
+.whoami-gradient-date {
+    font-weight: bold;
+}

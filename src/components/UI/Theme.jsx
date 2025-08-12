@@ -141,33 +141,44 @@ const themeDefault = (mode) => {
             ...(ownerState.variant === "contained" &&
               (themePalette.palette.mode === "dark"
                 ? {
+                  backgroundColor:
+                    themePalette.palette[ownerState.color]?.light,
+                  '&:hover': {
                     backgroundColor:
                       themePalette.palette[ownerState.color]?.light,
+                    opacity: 0.8,
                   }
+                }
                 : {
-                    backgroundColor:
-                      themePalette.palette[ownerState.color]?.main,
-                  })),
+                  backgroundColor:
+                    themePalette.palette[ownerState.color]?.main,
+                  color: themePalette.palette[ownerState.color]?.contrastTextLight,
+                })),
             ...(ownerState.variant === "outlined" &&
               (themePalette.palette.mode === "dark"
                 ? {
+                  color: themePalette.palette[ownerState.color]?.light,
+                  borderColor: themePalette.palette[ownerState.color]?.light,
+                  '&:hover': {
                     color: themePalette.palette[ownerState.color]?.light,
                     borderColor: themePalette.palette[ownerState.color]?.light,
+                    opacity: 0.8,
                   }
+                }
                 : {
-                    color: themePalette.palette[ownerState.color]?.main,
-                    borderColor: themePalette.palette[ownerState.color]?.main,
-                  })),
+                  color: themePalette.palette[ownerState.color]?.main,
+                  borderColor: themePalette.palette[ownerState.color]?.main,
+                })),
             ...(ownerState.variant === "text" &&
               (themePalette.palette.mode === "dark"
                 ? {
-                    color: themePalette.palette[ownerState.color]?.light,
-                    padding: "0px 0px",
-                  }
+                  color: themePalette.palette[ownerState.color]?.light,
+                  padding: "0px 0px",
+                }
                 : {
-                    color: themePalette.palette[ownerState.color]?.main,
-                    padding: "0px 0px",
-                  })),
+                  color: themePalette.palette[ownerState.color]?.main,
+                  padding: "0px 0px",
+                })),
           }),
         },
       },
@@ -199,39 +210,39 @@ const themeDefault = (mode) => {
             ...(ownerState.variant === "contained" &&
               (themePalette.palette.mode === "dark"
                 ? {
+                  backgroundColor: themePalette.palette[ownerState.color]?.light,
+                  color: themePalette.palette[ownerState.color]?.contrastText,
+                  border: "none",
+                  '&:hover': {
                     backgroundColor: themePalette.palette[ownerState.color]?.light,
                     color: themePalette.palette[ownerState.color]?.contrastText,
-                    border: "none",
-                    '&:hover': {
-                      backgroundColor: themePalette.palette[ownerState.color]?.light,
-                      color: themePalette.palette[ownerState.color]?.contrastText,
-                      opacity: 0.7
-                    }
+                    opacity: 0.7
                   }
+                }
                 : {
-                    backgroundColor: themePalette.palette[ownerState.color]?.main,
-                    color: themePalette.palette[ownerState.color]?.contrastTextLight,
-                    border: "none",
-                    '&:hover': {
-                      opacity: 0.7
-                    }
-                  })),
+                  backgroundColor: themePalette.palette[ownerState.color]?.main,
+                  color: themePalette.palette[ownerState.color]?.contrastTextLight,
+                  border: "none",
+                  '&:hover': {
+                    opacity: 0.7
+                  }
+                })),
             ...(ownerState.variant === "outlined" &&
               (themePalette.palette.mode === "dark"
                 ? {
-                    color: themePalette.palette[ownerState.color]?.light,
-                    border: "none",
-                    '&:hover': {
-                      opacity: 0.7
-                    }
+                  color: themePalette.palette[ownerState.color]?.light,
+                  border: "none",
+                  '&:hover': {
+                    opacity: 0.7
                   }
+                }
                 : {
-                    color: themePalette.palette[ownerState.color]?.dark,
-                    border: "none",
-                    '&:hover': {
-                      opacity: 0.7
-                    }
-                  })),
+                  color: themePalette.palette[ownerState.color]?.dark,
+                  border: "none",
+                  '&:hover': {
+                    opacity: 0.7
+                  }
+                })),
           }),
         },
       },
@@ -251,9 +262,9 @@ const themeDefault = (mode) => {
             props: { variant: "standard" },
             style: {
               "& .MuiInputBase-root.MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before":
-                {
-                  borderBottom: "1px solid",
-                },
+              {
+                borderBottom: "1px solid",
+              },
             },
           },
         ],
@@ -486,17 +497,17 @@ const themeDefault = (mode) => {
               backgroundColor: "#6b6b6b",
             },
             "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
-              {
-                backgroundColor: "#959595",
-              },
+            {
+              backgroundColor: "#959595",
+            },
             "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active":
-              {
-                backgroundColor: "#959595",
-              },
+            {
+              backgroundColor: "#959595",
+            },
             "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover":
-              {
-                backgroundColor: "#959595",
-              },
+            {
+              backgroundColor: "#959595",
+            },
             "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
               backgroundColor: "#2b2b2b",
             },
